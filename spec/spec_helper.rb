@@ -27,7 +27,7 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  config.color_enabled = true
+  config.color = true
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
