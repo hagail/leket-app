@@ -23,4 +23,5 @@ group :test do
   gem 'faker'
   gem 'poltergeist'
   gem 'shoulda-matchers', require: false
+  gem 'database_cleaner'
 end
