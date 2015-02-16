@@ -1,4 +1,4 @@
-== Leket
+# Leket
 
 ## Table of contents
 - [Getting started](#getting_started)
