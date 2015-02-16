@@ -1,5 +1,7 @@
 # Leket
 
+[![Build Status](https://travis-ci.org/hagail/leket-app.svg?branch=master)](https://travis-ci.org/hagail/leket-app)
+
 ## Table of contents
 - [Getting started](#getting_started)
   - [Source code](#source_code)
