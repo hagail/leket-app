@@ -2,4 +2,4 @@ language: ruby
 rvm:
   - 2.2.0
 before_script:
-  - psql -c 'create database leket-app_test;' -U postgres
+  - psql -c 'create database leket\-app_test;' -U postgres
