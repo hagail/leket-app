@@ -1,28 +1,21 @@
-== README
+== Leket
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Table of contents
+- [Getting started](#getting_started)
+  - [Source code](#source_code)
+  - [Heroku](#heroku)
 
-Things you may want to cover:
+<a id="getting_started"></a>
+## Getting started
 
-* Ruby version
+<a id="source_code"></a>
+### Source code
+Get the Leket source code:
 
-* System dependencies
+  git clone git@github.com:hagail/leket-app.git
 
-* Configuration
+<a id="heroku"></a>
+### Heroku
+Run the following command:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+  heroku git:remote -a leket-app
