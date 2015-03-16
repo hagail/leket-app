@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316174935) do
+ActiveRecord::Schema.define(version: 20150316175330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "containers", force: :cascade do |t|
+    t.string   "priority_id"
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "food_types", force: :cascade do |t|
+    t.string   "priority_id"
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "pickup_reasons", force: :cascade do |t|
     t.string   "priority_id"
@@ -50,6 +64,21 @@ ActiveRecord::Schema.define(version: 20150316174935) do
   add_index "reviews", ["pickup_id"], name: "index_reviews_on_pickup_id", using: :btree
   add_index "reviews", ["pickup_reason_id"], name: "index_reviews_on_pickup_reason_id", using: :btree
   add_index "reviews", ["warehouse_id"], name: "index_reviews_on_warehouse_id", using: :btree
+
+  create_table "supplier_reviews", force: :cascade do |t|
+    t.integer  "quantity"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "review_id"
+    t.integer  "supplier_id"
+    t.integer  "container_id"
+    t.integer  "food_type_id"
+  end
+
+  add_index "supplier_reviews", ["container_id"], name: "index_supplier_reviews_on_container_id", using: :btree
+  add_index "supplier_reviews", ["food_type_id"], name: "index_supplier_reviews_on_food_type_id", using: :btree
+  add_index "supplier_reviews", ["review_id"], name: "index_supplier_reviews_on_review_id", using: :btree
+  add_index "supplier_reviews", ["supplier_id"], name: "index_supplier_reviews_on_supplier_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
     t.string   "priority_id"
