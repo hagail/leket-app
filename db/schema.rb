@@ -37,6 +37,20 @@ ActiveRecord::Schema.define(version: 20150316175330) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "pickup_reports", force: :cascade do |t|
+    t.boolean  "food_picked_up"
+    t.string   "notes"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "pickup_id"
+    t.integer  "warehouse_id"
+    t.integer  "pickup_reason_id"
+  end
+
+  add_index "pickup_reports", ["pickup_id"], name: "index_pickup_reports_on_pickup_id", using: :btree
+  add_index "pickup_reports", ["pickup_reason_id"], name: "index_pickup_reports_on_pickup_reason_id", using: :btree
+  add_index "pickup_reports", ["warehouse_id"], name: "index_pickup_reports_on_warehouse_id", using: :btree
+
   create_table "pickups", force: :cascade do |t|
     t.string   "priority_id"
     t.string   "status"
@@ -50,35 +64,20 @@ ActiveRecord::Schema.define(version: 20150316175330) do
   add_index "pickups", ["supplier_id"], name: "index_pickups_on_supplier_id", using: :btree
   add_index "pickups", ["user_id"], name: "index_pickups_on_user_id", using: :btree
 
-  create_table "reviews", force: :cascade do |t|
-    t.string   "priority_id"
-    t.string   "status"
-    t.string   "notes"
+  create_table "supplier_reports", force: :cascade do |t|
+    t.integer  "quantity"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.integer  "pickup_id"
-    t.integer  "warehouse_id"
-    t.integer  "pickup_reason_id"
-  end
-
-  add_index "reviews", ["pickup_id"], name: "index_reviews_on_pickup_id", using: :btree
-  add_index "reviews", ["pickup_reason_id"], name: "index_reviews_on_pickup_reason_id", using: :btree
-  add_index "reviews", ["warehouse_id"], name: "index_reviews_on_warehouse_id", using: :btree
-
-  create_table "supplier_reviews", force: :cascade do |t|
-    t.integer  "quantity"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "review_id"
+    t.integer  "pickup_report_id"
     t.integer  "supplier_id"
     t.integer  "container_id"
     t.integer  "food_type_id"
   end
 
-  add_index "supplier_reviews", ["container_id"], name: "index_supplier_reviews_on_container_id", using: :btree
-  add_index "supplier_reviews", ["food_type_id"], name: "index_supplier_reviews_on_food_type_id", using: :btree
-  add_index "supplier_reviews", ["review_id"], name: "index_supplier_reviews_on_review_id", using: :btree
-  add_index "supplier_reviews", ["supplier_id"], name: "index_supplier_reviews_on_supplier_id", using: :btree
+  add_index "supplier_reports", ["container_id"], name: "index_supplier_reports_on_container_id", using: :btree
+  add_index "supplier_reports", ["food_type_id"], name: "index_supplier_reports_on_food_type_id", using: :btree
+  add_index "supplier_reports", ["pickup_report_id"], name: "index_supplier_reports_on_pickup_report_id", using: :btree
+  add_index "supplier_reports", ["supplier_id"], name: "index_supplier_reports_on_supplier_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
     t.string   "priority_id"
