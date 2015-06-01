@@ -1,0 +1,11 @@
+<div class='foodtype-report'>
+  <div class='foodtype-icon'>
+  </div>
+  <div class='foodtype-name'>
+  </div>
+  <div class='container-reports'>
+    <% Container.all.each do |container| %>
+      <% render partial: 'container', supplier_report: container_report(foodtype_reports, container) %>
+    <% end %>
+  </div>
+</div>
