@@ -1,0 +1,2 @@
+class PickupReportsController < ApplicationController
+end
