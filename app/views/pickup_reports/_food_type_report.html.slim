@@ -1,0 +1,6 @@
+.food-type-report.text-center
+  = image_tag("#{food_type_report.food_type.name}.svg", alt: food_type_report.food_type.name)
+  .foodtype-name= food_type_report.food_type.name
+  .container-reports.row
+    - food_type_report.container_reports.each do |container_report|
+      =  render partial: 'container', locals: {container_report: container_report}
