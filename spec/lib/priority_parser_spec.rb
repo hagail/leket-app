@@ -55,7 +55,7 @@ describe PriorityParser do
       expect(pickups.second.supplier.suppliers[10]).to have_attributes(name: "פיצה פינו -קניון שבעת הכוכבים")
     end
 
-    it "supports processing twice" do
+    it "overrides existing pickups" do
       PriorityParser.process(pickups_from_file)
 
       pickup = Pickup.find_by_priority_id("108618")
