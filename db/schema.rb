@@ -11,17 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510145807) do
+ActiveRecord::Schema.define(version: 20150705161942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "container_reports", force: :cascade do |t|
+    t.integer  "quantity",            default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "container_id"
+    t.integer  "food_type_report_id"
+  end
+
+  add_index "container_reports", ["container_id"], name: "index_container_reports_on_container_id", using: :btree
+  add_index "container_reports", ["food_type_report_id"], name: "index_container_reports_on_food_type_report_id", using: :btree
+
   create_table "containers", force: :cascade do |t|
     t.string   "priority_id"
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "food_type_id"
   end
+
+  add_index "containers", ["food_type_id"], name: "index_containers_on_food_type_id", using: :btree
+
+  create_table "food_type_reports", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "pickup_report_id"
+    t.integer  "food_type_id"
+  end
+
+  add_index "food_type_reports", ["food_type_id"], name: "index_food_type_reports_on_food_type_id", using: :btree
+  add_index "food_type_reports", ["pickup_report_id"], name: "index_food_type_reports_on_pickup_report_id", using: :btree
 
   create_table "food_types", force: :cascade do |t|
     t.string   "priority_id"
@@ -65,17 +89,12 @@ ActiveRecord::Schema.define(version: 20150510145807) do
   add_index "pickups", ["user_id"], name: "index_pickups_on_user_id", using: :btree
 
   create_table "supplier_reports", force: :cascade do |t|
-    t.integer  "quantity"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "pickup_report_id"
     t.integer  "supplier_id"
-    t.integer  "container_id"
-    t.integer  "food_type_id"
   end
 
-  add_index "supplier_reports", ["container_id"], name: "index_supplier_reports_on_container_id", using: :btree
-  add_index "supplier_reports", ["food_type_id"], name: "index_supplier_reports_on_food_type_id", using: :btree
   add_index "supplier_reports", ["pickup_report_id"], name: "index_supplier_reports_on_pickup_report_id", using: :btree
   add_index "supplier_reports", ["supplier_id"], name: "index_supplier_reports_on_supplier_id", using: :btree
 

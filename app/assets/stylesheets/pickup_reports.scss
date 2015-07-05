@@ -1,3 +1,9 @@
-// Place all the styles related to the PickupReports controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.change-quantity {
+  background-color: $gainsboro;
+  padding: rem-calc(5) 0;
+}
+
+.continer-quality {
+  font-size: rem-calc(60);
+  line-height: rem-calc(80);
+}
