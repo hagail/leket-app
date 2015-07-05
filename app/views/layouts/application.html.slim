@@ -1,0 +1,23 @@
+doctype html
+html.no-js lang="he" dir="rtl"
+  head
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1.0" name="viewport"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+    title == content_for?(:title) ? yield(:title) : "לקט"
+
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "vendor/modernizr"
+    = javascript_include_tag "application", 'data-turbolinks-track' => true
+    = csrf_meta_tag
+
+  body
+    .fixed
+      nav.top-bar data-topbar="" role="navigation"
+        .top-bar__username= t("header.username", username: @username) if @username.present?
+        = image_tag('leket_logo.jpg', class: 'top-bar__logo', alt: t("header.logo_alt"))
+        .top-bar__date= l(@date) if @date.present?
+
+    == yield
+

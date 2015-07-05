@@ -1,0 +1,22 @@
+.top-bar {
+  text-align: center;
+  padding: 0 rem-calc(10);
+}
+
+.top-bar__logo {
+  width: rem-calc(148);
+  height: rem-calc(100);
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.top-bar__username {
+  float: right;
+  display: inline-block;
+}
+
+.top-bar__date {
+  float: left;
+  display: inline-block;
+}
