@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150523145520) do
+ActiveRecord::Schema.define(version: 20150705161942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "container_reports", force: :cascade do |t|
-    t.integer  "quantity"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.integer  "quantity",            default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "container_id"
     t.integer  "food_type_report_id"
   end
@@ -30,9 +30,12 @@ ActiveRecord::Schema.define(version: 20150523145520) do
   create_table "containers", force: :cascade do |t|
     t.string   "priority_id"
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "food_type_id"
   end
+
+  add_index "containers", ["food_type_id"], name: "index_containers_on_food_type_id", using: :btree
 
   create_table "food_type_reports", force: :cascade do |t|
     t.datetime "created_at",       null: false
