@@ -13,18 +13,18 @@ pickups_from_file = CSV.read("spec/fixtures/isuf.txt", col_sep: "\t", encoding: 
 PriorityParser.process(pickups_from_file)
 ### Set Food Types and Containers ###
 [
-    { priority_id: "1000", name: "לחמים", containers: [
+    { priority_id: "1000", name: "לחמים", image: "bread.svg", containers: [
         { priority_id: "10", name: "שקית סופר" },
         { priority_id: "20", name: "שק" },
         { priority_id: "30", name: "כיכר" }
     ] },
-    { priority_id: "2000", name: "מזון מבושל", containers: [
+    { priority_id: "2000", name: "מזון מבושל", image: "cooked.svg", containers: [
         { priority_id: "40", name: "קופסה 2 ליטר" },
         { priority_id: "50", name: "קופסה 3 ליטר" },
         { priority_id: "60", name: "קופסה 10 ליטר" },
         { priority_id: "70", name: "כריך" }
     ] },
-    { priority_id: "3000", name: "מאפים", containers: [
+    { priority_id: "3000", name: "מאפים", image: "pastries.svg", containers: [
         { priority_id: "80", name: "שקית סופר" },
         { priority_id: "90", name: "שק" },
         { priority_id: "100", name: "קופסה 3 ליטר" },
@@ -39,6 +39,6 @@ PriorityParser.process(pickups_from_file)
   end
 
   food_type = FoodType.find_or_initialize_by(priority_id: food_type_data[:priority_id])
-  food_type.assign_attributes(name: food_type_data[:name], containers: containers)
+  food_type.assign_attributes(name: food_type_data[:name], image: food_type_data[:image], containers: containers)
   food_type.save!
 end
