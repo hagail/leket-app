@@ -1,9 +1,30 @@
-.change-quantity {
-  background-color: $gainsboro;
-  padding: rem-calc(5) 0;
+.pickup-report {
+  margin-top: rem-calc(40);
 }
 
-.continer-quality {
-  font-size: rem-calc(60);
-  line-height: rem-calc(80);
+.supplier-title {
+  margin-top: rem-calc(20);
+  background-color: #BA542E;
+  width: 100%;
+  text-align: center;
+  font-size: rem-calc(30);
+  color: #FFFFFF;
+}
+
+.food-type-report {
+  margin-top: rem-calc(20);
+}
+
+.container-reports {
+  .container-report {
+    .change-quantity {
+      background-color: $gainsboro;
+      padding: rem-calc(5) 0;
+    }
+
+    .continer-quality {
+      font-size: rem-calc(60);
+      line-height: rem-calc(80);
+    }
+  }
 }
