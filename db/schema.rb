@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150705161942) do
+ActiveRecord::Schema.define(version: 20150705175505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,14 +38,16 @@ ActiveRecord::Schema.define(version: 20150705161942) do
   add_index "containers", ["food_type_id"], name: "index_containers_on_food_type_id", using: :btree
 
   create_table "food_type_reports", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "pickup_report_id"
     t.integer  "food_type_id"
+    t.integer  "supplier_report_id"
   end
 
   add_index "food_type_reports", ["food_type_id"], name: "index_food_type_reports_on_food_type_id", using: :btree
   add_index "food_type_reports", ["pickup_report_id"], name: "index_food_type_reports_on_pickup_report_id", using: :btree
+  add_index "food_type_reports", ["supplier_report_id"], name: "index_food_type_reports_on_supplier_report_id", using: :btree
 
   create_table "food_types", force: :cascade do |t|
     t.string   "priority_id"

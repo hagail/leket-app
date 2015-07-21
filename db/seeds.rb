@@ -11,7 +11,6 @@ require_relative '../lib/priority_parser'
 
 pickups_from_file = CSV.read("spec/fixtures/isuf.txt", col_sep: "\t", encoding: "Windows-1255")[1..-1]
 PriorityParser.process(pickups_from_file)
-
 ### Set Food Types and Containers ###
 [
     { priority_id: "1000", name: "לחמים", containers: [
