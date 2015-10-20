@@ -9,7 +9,7 @@ module ReportBuilder
       build_supplier_report(pickup_report, pickup.supplier)
     end
 
-    pickup_report
+    pickup_report.tap { |report| report.save! }
   end
 
   private

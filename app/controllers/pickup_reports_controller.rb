@@ -3,4 +3,7 @@ class PickupReportsController < ApplicationController
     @pickup = Pickup.find(params[:pickup_id])
     @pickup_report = @pickup.pickup_report || ReportBuilder.build_pickup_report(@pickup)
   end
+
+  def update
+  end
 end
