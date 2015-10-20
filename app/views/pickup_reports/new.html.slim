@@ -1,4 +1,3 @@
-div style="height: 3000px;"
+div
   - @pickup_report.supplier_reports.each do |supplier_report|
-    - supplier_report.food_type_reports.each do |food_type_report|
-      = render partial: 'food_type_report', locals: {food_type_report: food_type_report}
+    = render partial: 'supplier_report', locals: {supplier_report: supplier_report}
