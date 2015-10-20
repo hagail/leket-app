@@ -1,7 +1,7 @@
-.change-quantity {
+.change-quantity-plus, .change-quantity-minus {
   background-color: $gainsboro;
+  padding: rem-calc(5) 0;
   width: 100%;
-  //padding: rem-calc(5) 0;
 }
 
 .pickup-report {
@@ -23,12 +23,7 @@
 
 .container-reports {
   .container-report {
-    .change-quantity {
-      background-color: $gainsboro;
-      padding: rem-calc(5) 0;
-    }
-
-    .continer-quality {
+    .container-quality {
       font-size: rem-calc(60);
       line-height: rem-calc(80);
     }

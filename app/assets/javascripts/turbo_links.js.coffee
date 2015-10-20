@@ -1,0 +1,1 @@
+Turbolinks.pagesCached(0)
