@@ -13,7 +13,10 @@ gem "rails-i18n"
 
 # Asset related
 gem 'foundation-rails'
+gem 'jquery-turbolinks'
+gem 'fastclick-rails'
 gem 'sass-rails', '~> 5'
+gem 'coffee-rails'
 
 group :production do
   gem 'rails_12factor'

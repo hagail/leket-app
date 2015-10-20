@@ -1,0 +1,22 @@
+.thank-you-page
+{
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #BA542E;
+  padding: rem-calc(5) 0 0 0;
+
+  .thank-you-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: rem-calc(36);
+
+    h1 {
+      font-size: rem-calc(80);
+      color: #FFFFFF;
+    }
+  }
+}
