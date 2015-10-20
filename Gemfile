@@ -15,6 +15,10 @@ gem "rails-i18n"
 gem 'foundation-rails'
 gem 'sass-rails', '~> 5'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'pry'
 end
