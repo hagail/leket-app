@@ -5,4 +5,10 @@ div
         - supplier_report.food_type_reports.each do |food_type_report|
           = supplier_report_form.fields_for food_type_report, index: food_type_report.id do |food_type_report_form|
             = render partial: 'food_type_report', locals: {food_type_report: food_type_report, food_type_report_form: food_type_report_form }
-    button type="submit" = "Test"
+    .submit-report-container.row
+      = pickup_report_form.submit "שלח משוב"
+    footer.row
+      span="לקט ישראל"
+      span="|"
+      span="09-7441757"
+
