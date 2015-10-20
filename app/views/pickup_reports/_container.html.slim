@@ -1,7 +1,7 @@
 .container-report.columns class="small-#{size}"
-  button.change-quantity type="button" = '+'
+  button.change-quantity-plus type="button" = '+'
   .container-info
-    = container_report_form.text_field :quantity
-    /.continer-quality= 0
+    = container_report_form.hidden_field :quantity
+    .container-quality= 0
     = container_report.container.name
-  button.change-quantity type="button"= '-'
+  button.change-quantity-minus type="button"= '-'
