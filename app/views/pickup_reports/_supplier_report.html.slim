@@ -1,5 +1,5 @@
 .supplier-report
-  .supplier-title
+  .supplier-title.sticky
     = supplier_report.supplier.name
   - supplier_report.food_type_reports.each do |food_type_report|
     = render partial: 'food_type_report', locals: {food_type_report: food_type_report, food_type_report_form: food_type_report_form}

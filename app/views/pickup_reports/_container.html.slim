@@ -3,5 +3,5 @@
   .container-info
     = container_report_form.hidden_field :quantity
     .container-quality= 0
-    = container_report.container.name
+    div{data-equalizer-watch}= container_report.container.name
   button.change-quantity-minus type="button"= '-'
