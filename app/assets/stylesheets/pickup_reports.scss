@@ -2,6 +2,13 @@
   background-color: $gainsboro;
   padding: rem-calc(5) 0;
   width: 100%;
+  height: rem-calc(50);
+  margin: 0;
+  font-size: rem-calc(30);
+
+  &:hover, &:focus{
+    background-color: $gainsboro;
+  }
 }
 
 .pickup-report {
@@ -19,13 +26,18 @@
 
 .food-type-report {
   margin-top: rem-calc(20);
+  margin-bottom: rem-calc(50);
 }
 
 .container-reports {
   .container-report {
+    .container-info {
+      font-size: rem-calc(24);
+    }
     .container-quality {
-      font-size: rem-calc(60);
+      font-size: rem-calc(50);
       line-height: rem-calc(80);
+      height: rem-calc(65);
     }
   }
 }

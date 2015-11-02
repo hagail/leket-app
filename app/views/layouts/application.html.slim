@@ -19,5 +19,7 @@ html.no-js lang="he" dir="rtl"
         = image_tag('leket_logo.jpg', class: 'top-bar__logo', alt: t("header.logo_alt"))
         .top-bar__date= l(@date) if @date.present?
 
+    .top-bar__space
+
     == yield
 
