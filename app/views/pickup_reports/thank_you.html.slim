@@ -1,0 +1,18 @@
+doctype html
+html.no-js lang="he" dir="rtl"
+  head
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1.0" name="viewport"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+    title == content_for?(:title) ? yield(:title) : "לקט"
+
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "vendor/modernizr"
+    = javascript_include_tag "application", 'data-turbolinks-track' => true
+    = csrf_meta_tag
+  body
+    .thank-you-page
+      .thank-you-wrapper
+        h1="תודה!"
+        div="בעזרתך, כל שבוע נאסף בלקט ישראל מזון עבור עשרות משפחות"

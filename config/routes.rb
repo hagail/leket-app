@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   root 'pickup_reports#new'
 
   scope "pickups/(:pickup_id)"  do
-    resources :pickup_reports, only: [:new, :create, :edit, :update]
+    resources :pickup_reports, only: [:new, :update]
   end
 end

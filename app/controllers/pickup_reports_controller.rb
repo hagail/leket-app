@@ -5,5 +5,6 @@ class PickupReportsController < ApplicationController
   end
 
   def update
+    render :thank_you, layout: nil
   end
 end

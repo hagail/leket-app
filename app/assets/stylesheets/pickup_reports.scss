@@ -29,3 +29,30 @@
     }
   }
 }
+
+.submit-report-container {
+  height: rem-calc(100);
+
+  input[type='submit'] {
+    border: none;
+    font-size: rem-calc(54);
+    background-color: #F9AF2A;
+    color: #5C5344;
+    text-shadow: 1px 1px 0px #FFFFFF;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+footer {
+  height: rem-calc(30);
+  font-size: rem-calc(12);
+  text-align: center;
+  color: white;
+  line-height: rem-calc(30);
+  background-color: #BA541E;
+
+  span {
+    margin: 0 rem-calc(3);
+  }
+}
