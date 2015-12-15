@@ -7,6 +7,11 @@ class PickupReportsController < ApplicationController
     @supplier_name = @pickup.supplier.name
   end
 
+  def index
+    # current_user by email :)
+    @user = User.last
+  end
+
   def update
     #pickup_params[:notes]
 
