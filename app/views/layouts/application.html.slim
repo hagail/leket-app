@@ -18,6 +18,7 @@ html.no-js lang="he" dir="rtl"
         .top-bar__username= t("header.username", username: @username) if @username.present?
         = image_tag('leket_logo.jpg', class: 'top-bar__logo', alt: t("header.logo_alt"))
         .top-bar__date= l(@date) if @date.present?
+      .top-bar__supplier-title= @supplier_name if @supplier_name
 
     .top-bar__space
 

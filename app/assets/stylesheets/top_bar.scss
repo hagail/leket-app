@@ -1,8 +1,8 @@
 .top-bar {
   text-align: center;
   padding: 0 rem-calc(10);
-  height: rem-calc(100);
 
+  @include clearfix;
 }
 .top-bar__logo {
   width: rem-calc(148);
@@ -20,4 +20,13 @@
 .top-bar__date {
   float: left;
   display: inline-block;
+}
+
+.top-bar__supplier-title {
+  position: relative;
+  z-index: 2;
+  background-color: #BA542E;
+  text-align: center;
+  font-size: rem-calc(30);
+  color: #FFFFFF;
 }
