@@ -9,7 +9,7 @@ class PickupReportsController < ApplicationController
 
   def index
     # current_user by email :)
-    @user = User.last
+    @user = User.first
   end
 
   def update
