@@ -8,15 +8,14 @@ class PickupReportsController < ApplicationController
   end
 
   def index
-    # current_user by email :)
-    @user = User.first
   end
 
   def update
     #pickup_params[:notes]
 
     pickup_params[:supplier_report].each {|sid, sv| sv[:food_type_report].each { |fid, fv| fv[:container_report].each { |cid, cv| ContainerReport.find(cid).update_attributes(quantity: cv[:quantity]) } } }
-    render :thank_you, layout: nil
+
+    redirect_to thank_you_path
   end
 
   private
