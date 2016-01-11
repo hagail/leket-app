@@ -73,3 +73,83 @@ footer {
     margin: 0 rem-calc(3);
   }
 }
+
+#summary{
+
+  padding: rem-calc(20);
+  width: 40%;
+  margin: 0 auto;
+
+  .pickup-report{
+
+    padding: rem-calc(30);
+    position: relative;
+
+    .report_id{
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      font-size: 10px;
+    }
+
+    .pickup-user{
+      text-align: center;
+      border: 1px solid;
+
+      .user_name{
+
+      }
+    }
+
+    .supplier-report{
+      .food-type-report{
+         margin: 0;
+        .food-type-report-name{
+            text-align: center;
+            display: block;
+            border-bottom: 1px solid;
+          .container-report{
+             width: 50%;
+              margin: 0 auto;
+
+            .container-report-name{
+
+            }
+            .container-report-quantity{
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.approve{
+  width: rem-calc(200);
+  height: rem-calc(200);
+  text-align: center;
+  margin: auto;
+  margin-top: rem-calc(100);
+  background: green;
+  line-height: rem-calc(200);
+  color: white;
+}
+
+.supplier-name {
+    text-align: center;
+    font-weight: 700;
+    padding: rem-calc(10);
+}
+
+.reports {
+    width: 40%;
+}
+
+.actions {
+    width: 60%;
+    text-align: center;
+}
+
+

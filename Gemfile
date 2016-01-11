@@ -11,6 +11,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks'
 gem "rails-i18n"
 
+gem 'best_in_place'
+gem 'puma'
+
 # Asset related
 gem 'foundation-rails'
 gem 'jquery-turbolinks'
@@ -20,6 +23,11 @@ gem 'coffee-rails'
 
 group :production do
   gem 'rails_12factor'
+end
+
+group :development do
+  gem 'quiet_assets'
+  gem 'bullet'
 end
 
 group :development, :test do
@@ -35,4 +43,5 @@ group :test do
   gem 'poltergeist'
   gem 'shoulda-matchers', require: false
   gem 'database_cleaner'
+  gem 'annotate'
 end

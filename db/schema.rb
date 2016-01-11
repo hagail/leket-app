@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721155009) do
+ActiveRecord::Schema.define(version: 20160108102916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 20150721155009) do
     t.datetime "updated_at",  null: false
     t.integer  "supplier_id"
     t.integer  "user_id"
+    t.datetime "approved_at"
+    t.datetime "sent_at"
   end
 
   add_index "pickups", ["supplier_id"], name: "index_pickups_on_supplier_id", using: :btree
