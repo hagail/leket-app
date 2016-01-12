@@ -23,5 +23,8 @@ $(document).foundation();
 $(document).ready(function() {
   $(".best_in_place").best_in_place();
 
- 
+  $(".pickup-report").on("click", function(){
+    $(this).toggleClass("closed", 200);
+  });
+
 });
