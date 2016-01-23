@@ -29,7 +29,14 @@ class PickupReportsController < ApplicationController
   def update
     #pickup_params[:notes]
 
-    pickup_params[:supplier_report].each {|sid, sv| sv[:food_type_report].each { |fid, fv| fv[:container_report].each { |cid, cv| ContainerReport.find(cid).update_attributes(quantity: cv[:quantity]) } } }
+    pickup_params[:supplier_report].each do |sid, sv| 
+      sv[:food_type_report].each do |fid, fv|
+        fv[:container_report].each do |cid, cv| 
+          ContainerReport.find(cid).update_attributes(quantity: cv[:quantity]) 
+        end
+      end
+    end
+
     render :thank_you, layout: nil
   end
 
@@ -38,11 +45,27 @@ class PickupReportsController < ApplicationController
 
     @reports = PickupReport.includes(:pickup, supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container ).uniq
 
-    # @reports = PickupReport.joins("LEFT OUTER JOIN supplier_reports ON pickup_reports.id = supplier_reports.pickup_report_id")
-    # .joins("LEFT OUTER JOIN food_type_reports ON supplier_reports.id = food_type_reports.supplier_report_id")
-    # .joins("LEFT OUTER JOIN container_reports ON food_type_reports.id = container_reports.food_type_report_id")
-    # .distinct("pickup_reports.id")
+  end
 
+  def approve
+
+    report = PickupReport.find(params[:id])
+
+    pickup = report.pickup
+
+    pickup.approve!
+
+    head :ok
+  end
+
+  def unapprove
+    report = PickupReport.find(params[:id])
+
+    pickup = report.pickup
+
+    pickup.unapprove!
+
+    head :ok
   end
 
   private

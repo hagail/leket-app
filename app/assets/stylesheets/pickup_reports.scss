@@ -84,11 +84,34 @@ footer {
 
     transition: 0.2s all linear;
 
+    .edit{
+      position: absolute;
+      left: 5px;
+      top: 0;
+      visibility: hidden;
+      cursor: pointer;
+    }
+
     &.closed{
-      border: 1px solid;
-      background: yellow;
+      border-bottom: 1px solid lightgray;
       padding: 2px;
+      padding-bottom: 25px;
       padding-right: 25px;
+      border: 1px solid;
+      border-radius: 5px;
+
+      .edit{
+        visibility: visible;
+      }
+
+      &[data-approval='approved']{
+        border-color: green;
+
+      }
+
+       &[data-approval='unapproved']{
+        border-color: red;
+      }
 
        .pickup-user {
           border: none;
@@ -105,36 +128,48 @@ footer {
 
       .supplier-name {
           text-align: right;
-          display: inline-block;
+          display: block;
           font-size: 12px;
           vertical-align: top;
-          float: right;
       }
 
       .food-type-report {
-          text-align: right;
-          padding: 0 20px;
+          text-align: center;
+          display: inline-block;
+          padding: 0 10px;
           font-size: 12px;
-          float: right;
+          width: 30%;
       }
 
       .supplier-report .food-type-report .food-type-report-name {
-          text-align: right;
-          display: block;
-          border: none;
-          vertical-align: top;
+        display: block;
+        border: none;
+        vertical-align: top;
+        text-align: center;
       }
 
       .container-report {
         display: inline-block;
+        text-align: center;
+        vertical-align: top;
       }
 
-      .container-report-name.right {
-        display: none;
+      .container-report-name {
+        font-size: rem-calc(10);
+        display: block;
+        width: 100%;
+        white-space: nowrap;
+        vertical-align: top;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
       }
 
-      .food-type-report {
-        display: inline-block;
+      .container-report-quantity{
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: rem-calc(10);
       }
 
     }
@@ -184,15 +219,46 @@ footer {
 
 }
 
-.approve{
+.approval{
   width: rem-calc(200);
   height: rem-calc(200);
   text-align: center;
   margin: auto;
   margin-top: rem-calc(100);
-  background: green;
-  line-height: rem-calc(200);
   color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid;
+  display: inline-block;
+
+  &.selected{
+    color: white !important;
+
+    &.red{
+      background: red;
+    }
+
+    &.green{
+      background: green;
+    }
+  }
+
+  &.red{
+    border-color: red;
+  }
+
+  &.green{
+    border-color: green;
+  }
+
+  .status-icon{
+    font-size: rem-calc(125);
+    line-height: rem-calc(125);
+  }
+
+  .text{
+    line-height: rem-calc(75);
+  }
 }
 
 .supplier-name {
@@ -208,4 +274,12 @@ footer {
 .actions {
     width: 60%;
     text-align: center;
+}
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
 }

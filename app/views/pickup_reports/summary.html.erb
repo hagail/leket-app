@@ -1,6 +1,9 @@
 <div id="summary">
   <% @reports.map do |report| %>
     <div class="pickup-report">
+      <div class="edit">
+      <i class="fi-page-edit"> </i>
+      </div>
       <span class="report_id"> <%= report.id %> </span>
       <div class="pickup-user">
         <span class="user_name" user-id="<%= report.pickup.user.id %>">
@@ -16,6 +19,7 @@
                 <div class="food-type-report">
                   <span class="food-type-report-name"><%= food_type_report.name %></span>
                   <% food_type_report.container_reports.map do |container_report| %>
+                    <% next if !container_report.collected_any? %>
                     <div class="container-report clearfix">
                       <span class="container-report-name right"><%= container_report.container.name %></span>
                       <span class="container-report-quantity left"><%= container_report.quantity %></span>
@@ -27,60 +31,20 @@
           <% end %>
         </div>
         <div class="actions left">
-        <div class="approve">
-        APPROVE
-        </div>
+            <div class="approval unapprove red <% 'selected' if report.pickup.approved? %>" data-approval="unapprove" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
+               <div>
+                <div class="status-icon fi-x"> </div>
+                <div class="text"> לא לאשר </div>
+              </div>
+            </div>
+            <div class="approval approve green  <% 'selected' if !report.pickup.approved? %>" data-approval="approve" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
+              <div>
+                <div class="status-icon fi-check"> </div>
+                <div class="text"> אישור </div>
+              </div>
+            </div>
         </div>
       </div>
     </div>
   <% end %>
 </div>
-
-
-
-<table>
-  <thead>
-    <tr>
-      <th>מספר דוח</th>
-      <th>מספר מתנדב</th>
-      <th>שם מתנדב</th>
-      <th>ספק</th>
-      <th>סוג אוכל</th>
-      <th>צורת איסוף</th>
-      <th>כמות</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reports.map do |report| %>
-      <% report.supplier_reports.map do |supp_report| %>
-        <% supp_report.food_type_reports.map do |food_type_report| %>
-          <% food_type_report.container_reports.map do |container_report| %>
-            <tr class="pickup-report-row">
-              <td class="pickup-report-id">
-                <%= report.id %>
-              </td>
-              <td>
-                <%= report.pickup.user.id %>
-              </td>
-              <td>
-                <%= report.pickup.user.name %>
-              </td>
-              <td>
-                <%= supp_report.supplier.name %>
-              </td>
-              <td>
-                <%= food_type_report.name %>
-              </td>
-              <td>
-                <%= container_report.container.name %>
-              </td>
-              <td>
-                <%= best_in_place container_report, :quantity, as: :input, ok_button: "שמור" %>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>

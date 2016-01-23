@@ -24,7 +24,19 @@ class Pickup < ActiveRecord::Base
     !approved_at.nil?
   end
 
+  def approve!
+    self.update_column(:approved_at, Time.now)
+  end
+
+  def unapprove!
+    self.update_column(:approved_at, nil)
+  end
+
   def sent?
     !sent_at.nil?
+  end
+
+  def sent!
+    self.update_column(:sent_at, Time.now)
   end
 end
