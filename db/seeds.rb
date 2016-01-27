@@ -11,6 +11,7 @@ require_relative '../lib/priority_parser'
 
 pickups_from_file = CSV.read("spec/fixtures/isuf.txt", col_sep: "\t", encoding: "Windows-1255")[1..-1]
 PriorityParser.process(pickups_from_file)
+
 ### Set Food Types and Containers ###
 [
     { priority_id: "1000", name: "לחמים", image: "bread.svg", containers: [
@@ -42,3 +43,9 @@ PriorityParser.process(pickups_from_file)
   food_type.assign_attributes(name: food_type_data[:name], image: food_type_data[:image], containers: containers)
   food_type.save!
 end
+
+### Set Pickup Reasons ###
+PickupReason.create([{name: "לא היה אוכל"}, {name: "היה סגור"}, {name: "לא ענו בטלפון"}])
+
+### Set Warehouses ###
+Warehouse.create([{name: "תל אביב"}, {name: "פתח תקווה"}, {name: "רמת גן"}])
