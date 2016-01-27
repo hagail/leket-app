@@ -1,6 +1,7 @@
 .supplier-report
-  .supplier-title
-    = supplier_report.supplier.name
+  - if with_title
+    .supplier-title
+      = supplier_report.supplier.name
   - supplier_report.food_type_reports.sort_by { |food_type_report| food_type_report.food_type.name }.each do |food_type_report|
     = supplier_report_form.fields_for food_type_report, index: food_type_report.id do |food_type_report_form|
       = render partial: 'food_type_report', locals: {food_type_report: food_type_report, food_type_report_form: food_type_report_form}

@@ -2,7 +2,11 @@ div
   = form_for @pickup_report do |pickup_report_form|
     - @pickup_report.supplier_reports.sort_by { |supplier_report| supplier_report.supplier.name }.each do |supplier_report|
       = pickup_report_form.fields_for supplier_report, index: supplier_report.id do |supplier_report_form|
-        = render partial: 'supplier_report', locals: { supplier_report: supplier_report, supplier_report_form: supplier_report_form }
+        = render partial: 'supplier_report', locals: { supplier_report: supplier_report, supplier_report_form: supplier_report_form, with_title: @pickup_report.supplier_reports.length > 1 }
+    .row
+      .small-60
+        = pickup_report_form.label(:warehouse_id, "בחר מקום איסוף")
+        = pickup_report_form.collection_select(:warehouse_id, Warehouse.all, :id, :name)
     .other-container.row
       .other.columns.small-60
         = pickup_report_form.text_area(:notes, class: "form-control other--text-area", placeholder: "+ הוסף הערה")

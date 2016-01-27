@@ -4,10 +4,9 @@ Rails.application.routes.draw do
 
   resources :pickups, only: [:index] do
     resources :pickup_reports, only: [:new, :update], shallow: true
+
+    post "not_picked" => "pickups#mark_as_not_picked"
   end
 
   get "thank_you" => "pickups#thank_you"
-
-  # scope "pickups/:id" do
-  # end
 end
