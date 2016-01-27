@@ -1,7 +1,8 @@
 class PickupsController < ApplicationController
+  prepend_before_action :authenticate_user!
+
   def index
-    # current_user by email :)
-    @user = User.first
+    @user = current_user
     @pickup_reasons = PickupReason.all
   end
 
