@@ -43,7 +43,15 @@ class PickupReportsController < ApplicationController
   def summary
     # need pickup report with supplier report with food type and container report for each user
 
-    @reports = PickupReport.includes(:pickup, supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container ).uniq
+    approved = params[:approved] == "yes" ? true : false
+
+    @reports = PickupReport.includes(supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container ).joins(:pickup).uniq
+
+    if approved
+      @reports = @reports.merge(Pickup.approved)
+    else
+      @reports = @reports.merge(Pickup.not_approved)
+    end
 
   end
 

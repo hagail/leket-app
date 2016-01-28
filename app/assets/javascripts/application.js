@@ -42,7 +42,7 @@ $(document).ready(function() {
       })
       .done(function(){
          ($this.data("approval") == "unapprove") ? unapproveReport($report) : approveReport($report);
-         $report.addClass("closed");
+         $report.hide('slow');
          $report.attr("data-approval", $this.data("approval") + "d");
       })
   })

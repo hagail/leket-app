@@ -20,6 +20,9 @@ class Pickup < ActiveRecord::Base
   has_one :pickup_report
   alias_attribute :report, :pickup_report
 
+  scope :approved, ->{ where("pickups.approved_at IS NOT NULL")}
+  scope :not_approved, ->{ where("pickups.approved_at IS NULL")}
+
   def approved?
     !approved_at.nil?
   end

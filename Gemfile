@@ -4,7 +4,7 @@ ruby '2.2.0'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'pg'
-gem 'rails', '~> 4.2.5'
+gem 'rails', '4.2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim-rails'
 gem 'uglifier', '>= 1.3.0'
@@ -15,7 +15,7 @@ gem 'best_in_place'
 gem 'puma'
 
 # Asset related
-gem 'foundation-rails'
+gem 'foundation-rails', '~> 5.5.2.1'
 gem 'foundation-icons-sass-rails'
 
 gem 'jquery-turbolinks'
