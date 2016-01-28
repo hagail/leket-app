@@ -43,7 +43,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'poltergeist'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers', '~> 2.8.0' , require: false
   gem 'database_cleaner'
   gem 'annotate'
 end

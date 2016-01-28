@@ -11,7 +11,7 @@
 #  updated_at  :datetime         not null
 #
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe User do
   it { should validate_uniqueness_of(:email) }
