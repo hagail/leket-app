@@ -88,6 +88,10 @@ footer {
       width: 100%;
     }
 
+    .notes{
+      min-height: rem-calc(100);
+    }
+
     .edit{
       position: absolute;
       left: 5px;
@@ -190,8 +194,7 @@ footer {
     }
 
     .pickup-user{
-      text-align: center;
-      border: 1px solid;
+      border-bottom: 1px solid;
 
       .user_name{
 
@@ -228,12 +231,12 @@ footer {
   height: rem-calc(200);
   text-align: center;
   margin: auto;
-  margin-top: rem-calc(100);
   color: white;
   cursor: pointer;
   border-radius: 5px;
   border: 1px solid;
   display: inline-block;
+  position: relative;
 
   &.selected{
     color: white !important;

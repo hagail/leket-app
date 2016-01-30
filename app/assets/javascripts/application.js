@@ -45,7 +45,10 @@ $(document).ready(function() {
          $report.hide('slow');
          $report.attr("data-approval", $this.data("approval") + "d");
       })
-  })
+  });
+
+
+  $(".actions").stick_in_parent();
 
 });
 

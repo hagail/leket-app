@@ -13,6 +13,10 @@
 #
 
 class PickupReportsController < ApplicationController
+
+  http_basic_authenticate_with name: 'test', password: 'test', only: [:summary, :approve]
+
+
   def new
     @pickup = Pickup.find(params[:pickup_id])
     @pickup_report = @pickup.pickup_report || ReportBuilder.build_pickup_report(@pickup)
@@ -29,6 +33,10 @@ class PickupReportsController < ApplicationController
   def update
     #pickup_params[:notes]
 
+    @report = PickupReport.find(params[:id])
+
+    @report.update_attributes(pickup_report_params)
+
     pickup_params[:supplier_report].each do |sid, sv| 
       sv[:food_type_report].each do |fid, fv|
         fv[:container_report].each do |cid, cv| 
@@ -36,6 +44,7 @@ class PickupReportsController < ApplicationController
         end
       end
     end
+
 
     render :thank_you, layout: nil
   end
@@ -80,6 +89,10 @@ class PickupReportsController < ApplicationController
 
   def pickup_params
     params.require(:pickup_report)
+  end
+
+  def pickup_report_params
+    pickup_params.permit(:notes, :id)
   end
 
 end

@@ -11,13 +11,9 @@
       <i class="fi-page-edit"> </i>
       </div>
       <span class="report_id"> <%= report.id %> </span>
-      <div class="pickup-user">
-        <span class="user_name" user-id="<%= report.pickup.user.id %>">
-            <%= report.pickup.user.name %>
-        </span>
-      </div>
-      <div class="data clearfix">
-        <div class="reports right">
+
+      <div class="data clearfix" >
+        <div class="reports right" >
           <% report.supplier_reports.map do |supp_report| %>
             <% next unless supp_report.collected_any? %>
             <div class="supplier-report">
@@ -40,12 +36,18 @@
           <% end %>
         </div>
         <div class="actions left">
-            <!-- <div class="approval unapprove red <% 'selected' if report.pickup.approved? %>" data-approval="unapprove" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
-               <div>
-                <div class="status-icon fi-x"> </div>
-                <div class="text"> לא לאשר </div>
-              </div>
-            </div> -->
+            <div class="pickup-user clearfix">
+              <span class="user_name right" user-id="<%= report.pickup.user.id %>">
+                  <%= report.pickup.user.name %>
+              </span>
+              <span class="date left">
+                <%= report.pickup.date %>
+              </span>
+            </div>
+            <div class="notes">
+              <%= report.notes || "אין הערות מתנדב" %>
+            </div>
+
             <div class="approval approve green  <%= 'selected' if report.pickup.approved? %>" data-approval="approve" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
               <div>
                 <div class="status-icon fi-check"> </div>
