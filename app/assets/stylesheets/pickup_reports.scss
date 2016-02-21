@@ -73,3 +73,220 @@ footer {
     margin: 0 rem-calc(3);
   }
 }
+
+#summary{
+
+  padding: rem-calc(20);
+  width: 60%;
+  margin: 0 auto;
+
+  .pickup-report{
+
+    transition: 0.2s all linear;
+
+    table{
+      width: 100%;
+    }
+
+    .notes{
+      min-height: rem-calc(100);
+    }
+
+    .edit{
+      position: absolute;
+      left: 5px;
+      top: 0;
+      visibility: hidden;
+      cursor: pointer;
+    }
+
+    &.closed{
+      border-bottom: 1px solid lightgray;
+      padding: 2px;
+      padding-bottom: 25px;
+      padding-right: 25px;
+      border: 1px solid;
+      border-radius: 5px;
+
+      .edit{
+        visibility: visible;
+      }
+
+      &[data-approval='approved']{
+        border-color: green;
+
+      }
+
+       &[data-approval='unapproved']{
+        border-color: red;
+      }
+
+       .pickup-user {
+          border: none;
+          text-align: right;
+      }
+
+      .actions.left {
+        display: none;
+      }
+
+      .reports.right {
+        width: 100%;
+      }
+
+      .supplier-name {
+          text-align: right;
+          display: block;
+          font-size: 12px;
+          vertical-align: top;
+      }
+
+      .food-type-report {
+          text-align: center;
+          display: inline-block;
+          padding: 0 10px;
+          font-size: 12px;
+          width: 30%;
+      }
+
+      .supplier-report .food-type-report .food-type-report-name {
+        display: block;
+        border: none;
+        vertical-align: top;
+        text-align: center;
+      }
+
+      .container-report {
+        display: inline-block;
+        text-align: center;
+        vertical-align: top;
+      }
+
+      .container-report-name {
+        font-size: rem-calc(10);
+        display: block;
+        width: 100%;
+        white-space: nowrap;
+        vertical-align: top;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+      }
+
+      .container-report-quantity{
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: rem-calc(10);
+      }
+
+    }
+
+
+    padding: rem-calc(30);
+    position: relative;
+
+    .report_id{
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      font-size: 10px;
+    }
+
+    .pickup-user{
+      border-bottom: 1px solid;
+
+      .user_name{
+
+      }
+    }
+
+    .supplier-report{
+      .food-type-report{
+         margin: 0;
+        .food-type-report-name{
+            text-align: center;
+            display: block;
+            border-bottom: 1px solid;
+          .container-report{
+             width: 50%;
+              margin: 0 auto;
+
+            .container-report-name{
+
+            }
+            .container-report-quantity{
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.approval{
+  width: rem-calc(200);
+  height: rem-calc(200);
+  text-align: center;
+  margin: auto;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid;
+  display: inline-block;
+  position: relative;
+
+  &.selected{
+    color: white !important;
+
+    &.red{
+      background: red;
+    }
+
+    &.green{
+      background: green;
+    }
+  }
+
+  &.red{
+    border-color: red;
+  }
+
+  &.green{
+    border-color: green;
+  }
+
+  .status-icon{
+    font-size: rem-calc(125);
+    line-height: rem-calc(125);
+  }
+
+  .text{
+    line-height: rem-calc(75);
+  }
+}
+
+.supplier-name {
+    text-align: center;
+    font-weight: 700;
+    padding: rem-calc(10);
+}
+
+.reports {
+    width: 40%;
+}
+
+.actions {
+    width: 60%;
+    text-align: center;
+}
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
+}

@@ -10,13 +10,17 @@
 #  food_type_report_id :integer
 #
 
-class ContainerReport < ActiveRecord::Base
-  belongs_to :container
-  belongs_to :food_type_report
+class ContainerReportsController < ApplicationController
 
-  scope :used, ->{ where("container_reports.quantity > 0")}
+  def update
+    @container_report = ContainerReport.find params[:id]
+    @container_report.update_attributes container_reports_params
+    respond_with_bip(@container_report)
+  end
 
-  def collected_any?
-    quantity > 0
+  private
+
+  def container_reports_params
+    params.require(:container_report).permit(:quantity)
   end
 end
