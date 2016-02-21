@@ -20,4 +20,8 @@ class SupplierReport < ActiveRecord::Base
     container_reports.any?{|x| x.collected_any?}
   end
 
+  def top_supplier
+    supplier.supplier_id.nil? ? supplier : supplier.supplier
+  end
+
 end

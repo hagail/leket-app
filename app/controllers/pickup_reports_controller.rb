@@ -37,10 +37,10 @@ class PickupReportsController < ApplicationController
 
     @report.update_attributes(pickup_report_params)
 
-    pickup_params[:supplier_report].each do |sid, sv| 
+    pickup_params[:supplier_report].each do |sid, sv|
       sv[:food_type_report].each do |fid, fv|
-        fv[:container_report].each do |cid, cv| 
-          ContainerReport.find(cid).update_attributes(quantity: cv[:quantity]) 
+        fv[:container_report].each do |cid, cv|
+          ContainerReport.find(cid).update_attributes(quantity: cv[:quantity])
         end
       end
     end
