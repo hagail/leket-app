@@ -46,6 +46,7 @@
   height: rem-calc(100);
 
   input[type='submit'] {
+    cursor: pointer;
     border: none;
     font-size: rem-calc(54);
     background-color: #F9AF2A;

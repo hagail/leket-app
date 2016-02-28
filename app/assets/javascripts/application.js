@@ -20,6 +20,7 @@
 //= require_tree .
 
 $(document).foundation();
+
 $(document).ready(function() {
   $(".best_in_place").best_in_place();
 

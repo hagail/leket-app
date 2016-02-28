@@ -1,0 +1,73 @@
+.event {
+  padding: 1rem 0 1rem 1rem;
+  display: table;
+}
+
+.event-date {
+  width: 6rem;
+  margin: 0 auto 1rem;
+  display: table-cell;
+  width: auto;
+
+  .event-month {
+    margin: 0;
+    background: #eee;
+    padding: 0.5rem 2rem;
+    text-align: center;
+  }
+
+  .event-day {
+    margin: 0;
+    border: 1px solid #eee;
+    padding: 0 2rem;
+    text-align: center;
+    font-size: 2rem;
+  }
+}
+
+.event-desc {
+  padding: 0 1rem 0 0;
+  text-align: right;
+  display: table-cell;
+  vertical-align: top;
+
+  .event-desc-header {
+    margin: 0 0 0.5rem 0;
+    padding: 0;
+  }
+
+  .event-desc-detail {
+    margin: 0 0 0.25rem;
+    padding: 0;
+  }
+
+  .event-desc-time {
+    font-weight: bold;
+  }
+
+  .rsvp.button {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 0;
+    width: 100px;
+
+    + .rsvp.button {
+      margin-right: 5px;
+    }
+
+    @media only screen and (max-width: 427px) {
+      margin-top: 5px;
+      display: block;
+
+      + .rsvp.button {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.reason-button {
+  @media only screen and (max-width: 427px) {
+    display: block;
+  }
+}

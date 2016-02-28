@@ -1,2 +1,1 @@
-$(document).ready ->
-  new FastClick(document.body)
+new FastClick(document.body)

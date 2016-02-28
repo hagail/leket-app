@@ -1,0 +1,23 @@
+.row
+  .small-54.columns.small-centered
+    h2 רשימת איסופים
+    - @user.pickups.each_with_index do |pickup, id|
+      article.event
+        .event-date
+          p.event-month= I18n.t("date.abbr_month_names")[pickup.date.month]
+          p.event-day= pickup.date.day
+        .event-desc
+          h3.event-desc-header= pickup.supplier.name
+          p.event-desc-detail= pickup.status
+          a.rsvp.button href=new_pickup_pickup_report_path(pickup_id: pickup.id) מלא משוב
+          a.rsvp.button href="#" data-reveal-id="noPickup#{id}" לא אספתי
+          .reveal-modal id="noPickup#{id}" data-reveal="" aria-labelledby="modalTitle" aria-hidden="true" role="dialog"
+            h2#modalTitle אנא בחר סיבה
+            p.lead
+              - @pickup_reasons.each do |pickup_reason|
+                = link_to(pickup_reason.name,
+                          pickup_not_picked_path(pickup_id: pickup.id, reason_id: pickup_reason.id),
+                          method: :post, class: "button reason-button")
+            a.close-reveal-modal aria-label="Close" &#215;
+      - if @user.pickups.last != pickup
+        hr

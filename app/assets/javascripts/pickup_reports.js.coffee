@@ -4,8 +4,14 @@ updateQuantity = (containerInfo, updater) ->
   containerInfo.find(".container-quality").text(quantity.val())
 
 $(document).ready ->
-  $(".change-quantity-plus").click ->
+  $(".change-quantity-plus")
+      .off()
+      .on("click.plus", ->
     updateQuantity($(@).next(".container-info"), (quantity) -> quantity + 1)
+  )
 
-  $(".change-quantity-minus").click ->
+  $(".change-quantity-minus")
+      .off()
+      .on("click.minus", ->
     updateQuantity($(@).prev(".container-info"), (quantity) -> if quantity > 0 then quantity - 1 else quantity)
+  )
