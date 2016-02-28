@@ -1,0 +1,61 @@
+<div class="text-center">
+<%= link_to "מאושרים", pickups_summary_path(approved: 'yes') %>
+<%= link_to "חדשים", pickups_summary_path(approved: 'no') %>
+</div>
+
+<div id="summary">
+  <% @reports.map do |report| %>
+    <% next unless report.collected_any? %>
+    <div class="pickup-report">
+      <div class="edit">
+      <i class="fi-page-edit"> </i>
+      </div>
+      <span class="report_id"> <%= report.id %> </span>
+
+      <div class="data clearfix" >
+        <div class="reports right" >
+          <% report.supplier_reports.map do |supp_report| %>
+            <% next unless supp_report.collected_any? %>
+            <div class="supplier-report">
+              <div class="supplier-name"> <%= supp_report.supplier.name %> </div>
+              <table>
+                <tbody>
+                  <% supp_report.food_type_reports.map do |food_type_report| %> 
+                    <% food_type_report.container_reports.map do |container_report| %>
+                      <% next if !container_report.collected_any? %>
+                        <tr>
+                          <td><%= food_type_report.name %></td>
+                          <td><%= container_report.container.name %></td>
+                          <td><%= best_in_place container_report, :quantity, input: :text %></td>
+                        </tr>
+                      <% end %>
+                  <% end %>
+               </tbody>
+              </table>
+            </div>
+          <% end %>
+        </div>
+        <div class="actions left">
+            <div class="pickup-user clearfix">
+              <span class="user_name right" user-id="<%= report.pickup.user.id %>">
+                  <%= report.pickup.user.name %>
+              </span>
+              <span class="date left">
+                <%= report.pickup.date %>
+              </span>
+            </div>
+            <div class="notes">
+              <%= report.notes || "אין הערות מתנדב" %>
+            </div>
+
+            <div class="approval approve green  <%= 'selected' if report.pickup.approved? %>" data-approval="approve" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
+              <div>
+                <div class="status-icon fi-check"> </div>
+                <div class="text"> אישור </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

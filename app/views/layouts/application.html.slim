@@ -11,7 +11,7 @@ html.no-js lang="he" dir="rtl"
     = csrf_meta_tag
 
   body
-    .fixed
+    .nfixed
       nav.top-bar data-topbar="" role="navigation"
         .top-bar__username= t("header.username", username: @username) if @username.present?
         = image_tag('leket_logo.jpg', class: 'top-bar__logo', alt: t("header.logo_alt"))
