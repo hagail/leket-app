@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'sessions#new'
 
+  post "pickup_reports/:id/approve", to: "pickup_reports#approve"
+  post "pickup_reports/:id/unapprove", to: "pickup_reports#unapprove"
+
   resources :pickups, only: [:index] do
     resources :pickup_reports, only: [:new, :update], shallow: true
     member do

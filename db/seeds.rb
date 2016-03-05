@@ -14,28 +14,34 @@ PriorityParser.process(pickups_from_file)
 
 ### Set Food Types and Containers ###
 [
-    { priority_id: "1000", name: "לחמים", image: "bread.svg", containers: [
-        { priority_id: "10", name: "שקית סופר" },
-        { priority_id: "20", name: "שק" },
-        { priority_id: "30", name: "כיכר" }
+    {
+      priority_id: "NP0004",
+      name: "לחמים",
+      image: "bread.svg",
+      containers: [
+        # { priority_id: "56", name: "שקית סופר" },
+        { priority_id: "01", name: "משטח" },
+        { priority_id: "02", name: "מגש" }
+      ]
+    },
+    { priority_id: "NP0001", name: "מזון מבושל", image: "cooked.svg", containers: [
+        { priority_id: "51", name: "קופסה 2 ליטר" },
+        { priority_id: "52", name: "קופסה 3 ליטר" },
+        { priority_id: "53", name: "קופסה 10 ליטר" },
+        { priority_id: "08", name: "יחידה" }
     ] },
-    { priority_id: "2000", name: "מזון מבושל", image: "cooked.svg", containers: [
-        { priority_id: "40", name: "קופסה 2 ליטר" },
-        { priority_id: "50", name: "קופסה 3 ליטר" },
-        { priority_id: "60", name: "קופסה 10 ליטר" },
-        { priority_id: "70", name: "כריך" }
-    ] },
-    { priority_id: "3000", name: "מאפים", image: "pastries.svg", containers: [
-        { priority_id: "80", name: "שקית סופר" },
-        { priority_id: "90", name: "שק" },
-        { priority_id: "100", name: "קופסה 3 ליטר" },
-        { priority_id: "110", name: "קרטון" },
-        { priority_id: "120", name: "עוגה" }
+    { priority_id: "NP0003", name: "מאפים", image: "pastries.svg", containers: [
+        { priority_id: "56", name: "שקית סופר" },
+        { priority_id: "57", name: "שק" },
+        { priority_id: "52", name: "קופסה 3 ליטר" },
+        { priority_id: "55", name: "קרטון" },
+        { priority_id: "77", name: "מארז" }
     ] }
 ].each do |food_type_data|
   containers = food_type_data[:containers].map do |container_data|
       container = Container.find_or_initialize_by(priority_id: container_data[:priority_id])
       container.assign_attributes(name: container_data[:name])
+      container.save!
       container
   end
 
