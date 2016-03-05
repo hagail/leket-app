@@ -11,6 +11,7 @@
 #  warehouse_id     :integer
 #  pickup_reason_id :integer
 #
+require 'csv'
 
 class PickupReport < ActiveRecord::Base
   belongs_to :pickup
@@ -46,16 +47,16 @@ class PickupReport < ActiveRecord::Base
     # end
 
 
-    CSV.generate(col_sep: "\t") do |csv|
-      csv << ["pickup.id",
-              "pickup.date",
-              "main_supplier.id",
-              "warehouse.id",
-              "pickup_reason.id",
-              "subsupplier.id",
-              "food_type.id",
-              "container.id",
-              "container.quantity"
+    ::CSV.open("public/#{Date.today.strftime}.csv", "wb",  {:col_sep => "\t"}) do |csv|
+      csv << ["id",
+              "date",
+              "main_supplier",
+              "warehouse",
+              "pickup_reason",
+              "subsupplier",
+              "food_type",
+              "container",
+              "quantity"
             ]
       @reports.each do |pickup_report|
         # next unless pickup_report.collected_any?
@@ -65,15 +66,16 @@ class PickupReport < ActiveRecord::Base
           supplier_report.food_type_reports.each do |food_report|
             food_report.container_reports.each do |container_report|
               next unless container_report.collected_any?
-              csv << [pickup.priority_id,
-                      pickup.date,
-                      supplier_report.top_supplier.priority_id,
-                      "7800230",
-                       "5",
-                      supplier_report.supplier.priority_id,
-                      food_report.food_type.priority_id,
-                      container_report.container.priority_id,
-                      container_report.quantity
+              csv << [
+                        pickup.priority_id,                       #pickup id - pickup.priority_id
+                        pickup.date,                              #date - pickup.date
+                        supplier_report.top_supplier.priority_id, #main supplier - supplier_report.top_supplier.priority_id
+                        "7800018",                                #warehouse id
+                        "01",                                    #pickup reason id -
+                        supplier_report.supplier.priority_id,     #subsupplier - supplier_report.supplier.priority_id
+                        food_report.food_type.priority_id,        #food type - food_report.food_type.priority_id
+                        container_report.container.priority_id,   #container - container_report.container.priority_id
+                        container_report.quantity                 #quantity - container_report.quantity
                       ]
             end
           end

@@ -38,7 +38,7 @@ $(document).ready(function() {
     var report_id = $this.data("report-id");
       var pickup_id = $this.data("pickup-id");
       $.ajax({
-        url: "/pickups/" + pickup_id + "/pickup_reports/" + report_id + "/" + $this.data("approval"),
+        url: "/pickup_reports/" + report_id + "/" + $this.data("approval"),
         method: "POST"
       })
       .done(function(){
