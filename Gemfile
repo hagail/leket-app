@@ -14,6 +14,8 @@ gem "rails-i18n"
 gem 'best_in_place'
 gem 'puma'
 
+gem 'dropbox-sdk'
+
 # Asset related
 gem 'foundation-rails', '~> 5.5.2.1'
 gem 'foundation-icons-sass-rails'
@@ -22,6 +24,10 @@ gem 'jquery-turbolinks'
 gem 'fastclick-rails'
 gem 'sass-rails', '~> 5'
 gem 'coffee-rails'
+
+gem 'dotenv-rails', :groups => [:development, :test]
+
+gem "rails-settings-cached"
 
 group :production do
   gem 'rails_12factor'
@@ -48,4 +54,5 @@ group :test do
   gem 'shoulda-matchers', '~> 2.8.0' , require: false
   gem 'database_cleaner'
   gem 'annotate'
+  gem 'simplecov'
 end

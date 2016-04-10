@@ -26,7 +26,11 @@ class PickupReport < ActiveRecord::Base
     container_reports.any?{|x| x.collected_any? }
   end
 
-  def self.approved_csv
+  def self.report_file_name
+    "public/#{Date.today.strftime}.txt"
+  end
+
+  def self.create_approved_csv
 
     @reports = PickupReport.includes(supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container ).joins(:pickup).uniq
     @reports = @reports.merge(Pickup.approved)
@@ -47,7 +51,7 @@ class PickupReport < ActiveRecord::Base
     # end
 
 
-    ::CSV.open("public/#{Date.today.strftime}.csv", "wb",  {:col_sep => "\t"}) do |csv|
+    ::CSV.open(report_file_name, "wb",  {row_sep: "\n" ,col_sep: "\t"}) do |csv|
       csv << ["id",
               "date",
               "main_supplier",

@@ -20,7 +20,7 @@
               <div class="supplier-name"> <%= supp_report.supplier.name %> </div>
               <table>
                 <tbody>
-                  <% supp_report.food_type_reports.map do |food_type_report| %> 
+                  <% supp_report.food_type_reports.map do |food_type_report| %>
                     <% food_type_report.container_reports.map do |container_report| %>
                       <% next if !container_report.collected_any? %>
                         <tr>
@@ -58,4 +58,9 @@
       </div>
     </div>
   <% end %>
+</div>
+
+<div style="text-align: center; width: 100%;">
+  <div> Currently Using the Dropbox of: <%= @dropbox_email %> </div>
+  <u><%= link_to "link dropbox", dropbox_authorize_path %></u>
 </div>
