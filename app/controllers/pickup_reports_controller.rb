@@ -49,42 +49,42 @@ class PickupReportsController < ApplicationController
     redirect_to thank_you_path
 
   end
-
-  def summary
-    # need pickup report with supplier report with food type and container report for each user
-
-    approved = params[:approved] == "yes" ? true : false
-
-    @reports = PickupReport.includes(supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container ).joins(:pickup).uniq
-
-    if approved
-      @reports = @reports.merge(Pickup.approved)
-    else
-      @reports = @reports.merge(Pickup.not_approved)
-    end
-
-  end
-
-  def approve
-
-    report = PickupReport.find(params[:id])
-
-    pickup = report.pickup
-
-    pickup.approve!
-
-    head :ok
-  end
-
-  def unapprove
-    report = PickupReport.find(params[:id])
-
-    pickup = report.pickup
-
-    pickup.unapprove!
-
-    head :ok
-  end
+  # 
+  # def summary
+  #   # need pickup report with supplier report with food type and container report for each user
+  #
+  #   approved = params[:approved] == "yes" ? true : false
+  #
+  #   @reports = PickupReport.includes(supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container ).joins(:pickup).uniq
+  #
+  #   if approved
+  #     @reports = @reports.merge(Pickup.approved)
+  #   else
+  #     @reports = @reports.merge(Pickup.not_approved)
+  #   end
+  #
+  # end
+  #
+  # def approve
+  #
+  #   report = PickupReport.find(params[:id])
+  #
+  #   pickup = report.pickup
+  #
+  #   pickup.approve!
+  #
+  #   head :ok
+  # end
+  #
+  # def unapprove
+  #   report = PickupReport.find(params[:id])
+  #
+  #   pickup = report.pickup
+  #
+  #   pickup.unapprove!
+  #
+  #   head :ok
+  # end
 
   private
 
