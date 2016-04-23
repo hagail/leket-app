@@ -23,7 +23,7 @@ class PickupReport < ActiveRecord::Base
   has_many :container_reports, through: :food_type_reports
 
   def collected_any?
-    container_reports.any?{|x| x.collected_any? }
+    container_reports.any?(&:collected_any?)
   end
 
   def self.report_file_name
@@ -31,8 +31,7 @@ class PickupReport < ActiveRecord::Base
   end
 
   def self.create_approved_csv
-
-    @reports = PickupReport.includes(supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container ).joins(:pickup).uniq
+    @reports = PickupReport.includes(supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container).joins(:pickup).uniq
     @reports = @reports.merge(Pickup.approved)
 
     # pickup.priority_id
@@ -50,18 +49,16 @@ class PickupReport < ActiveRecord::Base
     #   end
     # end
 
-
-    ::CSV.open(report_file_name, "wb",  {row_sep: "\n" ,col_sep: "\t"}) do |csv|
-      csv << ["id",
-              "date",
-              "main_supplier",
-              "warehouse",
-              "pickup_reason",
-              "subsupplier",
-              "food_type",
-              "container",
-              "quantity"
-            ]
+    ::CSV.open(report_file_name, 'wb', row_sep: "\n", col_sep: "\t") do |csv|
+      csv << %w(id
+                date
+                main_supplier
+                warehouse
+                pickup_reason
+                subsupplier
+                food_type
+                container
+                quantity)
       @reports.each do |pickup_report|
         # next unless pickup_report.collected_any?
         pickup = pickup_report.pickup
@@ -87,5 +84,4 @@ class PickupReport < ActiveRecord::Base
       end
     end
   end
-
 end

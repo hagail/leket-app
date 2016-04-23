@@ -15,5 +15,4 @@
 #
 
 module PickupsHelper
-  
 end

@@ -11,7 +11,6 @@
 #
 
 class ContainerReportsController < ApplicationController
-
   def update
     @container_report = ContainerReport.find params[:id]
     @container_report.update_attributes container_reports_params

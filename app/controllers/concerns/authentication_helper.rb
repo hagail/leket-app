@@ -14,7 +14,9 @@ module AuthenticationHelper
   end
 
   def current_user
-    User.from_session(session) rescue nil
+    User.from_session(session)
+  rescue
+    nil
   end
 
   def sign_in(user)

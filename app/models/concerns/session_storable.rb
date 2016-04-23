@@ -3,7 +3,7 @@ module SessionStorable
 
   class_methods do
     def from_session(session)
-      Marshal::load(Base64.decode64(session[name.underscore]))
+      Marshal.load(Base64.decode64(session[name.underscore]))
     end
 
     def use(session)

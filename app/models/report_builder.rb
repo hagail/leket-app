@@ -9,7 +9,7 @@ module ReportBuilder
       build_supplier_report(pickup_report, pickup.supplier)
     end
 
-    pickup_report.tap { |report| report.save! }
+    pickup_report.tap(&:save!)
   end
 
   private
@@ -20,7 +20,6 @@ module ReportBuilder
   end
 
   def self.build_food_type_reports(supplier_report)
-
     FoodType.all.each do |food_type|
       food_type_report = supplier_report.food_type_reports.build(food_type: food_type)
       build_container_reports(food_type_report)

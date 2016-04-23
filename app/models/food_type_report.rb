@@ -18,6 +18,6 @@ class FoodTypeReport < ActiveRecord::Base
   delegate :name, to: :food_type
 
   def collected_any?
-    container_reports.any?{ |x| x.collected_any? }
+    container_reports.any?(&:collected_any?)
   end
 end

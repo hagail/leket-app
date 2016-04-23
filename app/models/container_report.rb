@@ -14,7 +14,7 @@ class ContainerReport < ActiveRecord::Base
   belongs_to :container
   belongs_to :food_type_report
 
-  scope :used, ->{ where("container_reports.quantity > 0")}
+  scope :used, -> { where('container_reports.quantity > 0') }
 
   def collected_any?
     quantity > 0
