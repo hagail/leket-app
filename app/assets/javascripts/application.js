@@ -22,6 +22,20 @@
 $(document).foundation();
 
 $(document).ready(function() {
+
+  $('#summary_table').DataTable({
+   "destroy": true,
+    "paging": false,
+    "info": false,
+    "oLanguage": {
+         "sSearch": "חיפוש"
+       }
+  });
+
+  $("#searchbox").on("keyup search input paste cut", function() {
+     $('#summary_table').DataTable().search(this.value).draw();
+  });
+
   $(".best_in_place").best_in_place();
 
 

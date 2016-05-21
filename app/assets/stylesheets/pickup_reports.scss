@@ -1,5 +1,5 @@
 .change-quantity-plus, .change-quantity-minus {
-  background-color: $gainsboro;
+  background-color: gainsboro;
   padding: rem-calc(5) 0;
   width: 100%;
   height: rem-calc(50);
@@ -7,7 +7,7 @@
   font-size: rem-calc(30);
 
   &:hover, &:focus{
-    background-color: $gainsboro;
+    background-color: gainsboro;
   }
 }
 

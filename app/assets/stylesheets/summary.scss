@@ -1,0 +1,18 @@
+#summary_table_wrapper {
+ width  : 85% !important;
+ margin : auto auto !important;
+
+ .dataTables_filter {
+    display: none;
+ }
+
+  #summary_table {
+    * {
+      font-size   : 0.8rem;
+      line-height : 1.2rem;
+    }
+    tr:hover {
+      background : #c9c9c9;
+    }
+  }
+}
