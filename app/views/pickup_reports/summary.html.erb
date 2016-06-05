@@ -10,7 +10,11 @@
 
 <div class="row">
  <input type="text" id="searchbox" placeholder="חיפוש / סינון">
+ <a href="#" class="button approve_all">
+  אישור כולל
+ </a>
 </div>
+
 <table id="summary_table" class="hover display dataTable" cellspacing="0" width="100%">
   <thead>
     <tr>
@@ -25,7 +29,9 @@
       <th>אריזה</th>
       <th>כמות</th>
       <th>הערות משתמש</th>
-      <th>פעולות</th>
+      <th>
+       פעולות
+      </th>
     </tr>
   </thead>
 
@@ -36,19 +42,23 @@
         <% supp_report.food_type_reports.map do |food_type_report| %>
           <% food_type_report.container_reports.map do |container_report| %>
             <% next if !container_report.collected_any? %>
-            <tr class=".pickup-report" data-approval="approve" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
-              <td><%= report.id %></td>
-              <td><%= report.pickup.user.name %></td>
-              <td><%= report.pickup.user.priority_id %></td>
-              <td><%= report.pickup.user.email %></td>
-              <td><%= supp_report.supplier.name %></td>
-              <td><%= report.pickup.date %></td>
-              <td><%= report.pickup_reason.try(:name) %></td>
-              <td><%= food_type_report.name %></td>
-              <td><%= container_report.container.name %></td>
-              <td><%= best_in_place container_report, :quantity, input: :text %></td>
-              <td><%= report.notes || "אין הערות מתנדב" %></td>
-              <td>Approve/Unapprove</td>
+            <tr class="pickup-report" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
+              <td class="report_id"><%= report.id %></td>
+              <td class="user_name"><%= report.pickup.user.name %></td>
+              <td class="user_priority_id"><%= report.pickup.user.priority_id %></td>
+              <td class="user_email"><%= report.pickup.user.email %></td>
+              <td class="supplier_name"><%= supp_report.supplier.name %></td>
+              <td class="pickup_date"><%= report.pickup.date %></td>
+              <td class="pickup_reason"><%= report.pickup_reason.try(:name) %></td>
+              <td class="food_type_name"><%= food_type_report.name %></td>
+              <td class="container_name"><%= container_report.container.name %></td>
+              <td class="container_quantity"><%= best_in_place container_report, :quantity, input: :text %></td>
+              <td class="report_notes"><%= report.notes.blank? ? "אין הערות מתנדב" : report.notes %></td>
+              <td class="options">
+               <span class="modify_approval tiny button" data-approved="<%= report.pickup.approved? %>">
+                <%= report.pickup.approved? ? "Approved" : "Not Approved" %>
+               </span>
+              </td>
             </tr>
           <% end %>
         <% end %>

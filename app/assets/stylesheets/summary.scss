@@ -16,3 +16,20 @@
     }
   }
 }
+
+tr.pickup-report {
+ .options {
+  .modify_approval {
+    color: white;
+
+    &[data-approved='false']{
+     background: red;
+    }
+
+    &[data-approved='true']{
+     background: green;
+    }
+  }
+ }
+
+}

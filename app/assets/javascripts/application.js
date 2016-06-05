@@ -43,37 +43,61 @@ $(document).ready(function() {
     $(this).closest(".pickup-report").removeClass("closed");
   })
 
-  $(".pickup-report .approval").on("click", function(e){
+  $(".approve_all").on("click", function(e){
+   e.stopPropagation();
+   e.preventDefault();
 
+   $(".pickup-report").each(function(){
+
+    var report = $(this);
+    var report_id = $(this).data("report-id");
+
+    $.ajax({
+      url: "/pickup_reports/" + report_id + "/" + "approve",
+      method: "POST"
+    })
+    .done(function(){
+      approveReport(report);
+    })
+   })
+
+
+  })
+
+  $(".pickup-report .modify_approval").on("click", function(e){
     e.stopPropagation();
 
-    var $this = $(this);
-    var $report = $this.closest(".pickup-report");
-    var report_id = $this.data("report-id");
-      var pickup_id = $this.data("pickup-id");
-      $.ajax({
-        url: "/pickup_reports/" + report_id + "/" + $this.data("approval"),
-        method: "POST"
-      })
-      .done(function(){
-         ($this.data("approval") == "unapprove") ? unapproveReport($report) : approveReport($report);
-         $report.hide('slow');
-         $report.attr("data-approval", $this.data("approval") + "d");
-      })
+    var $button = $(this);
+    var $report = $button.closest(".pickup-report");
+    var report_id = $report.data("report-id");
+    var pickup_id = $report.data("pickup-id");
+    var approval = $button.attr("data-approved") == "true" ? "unapprove" : "approve"
+
+    $.ajax({
+      url: "/pickup_reports/" + report_id + "/" + approval,
+      method: "POST"
+    })
+    .done(function(){
+       if (approval == "unapprove") {
+        unapproveReport($report)
+       }
+       else{
+        approveReport($report);
+       }
+    })
   });
-
-
-  $(".actions").stick_in_parent();
 
 });
 
 
-function approveReport(report){
-  report.find(".approval.selected").removeClass("selected");
-  report.find(".approval.approve").addClass("selected");
+function unapproveReport(report){
+ var button = report.find(".modify_approval");
+ button.attr("data-approved", "false");
+ button.text("Unapproved");
 }
 
-function unapproveReport(report){
-  report.find(".approval.selected").removeClass("selected");
-  report.find(".approval.unapprove").addClass("selected");
+function approveReport(report){
+ var button = report.find(".modify_approval");
+ button.attr("data-approved", "true");
+ button.text("Approved");
 }
