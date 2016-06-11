@@ -29,14 +29,12 @@ class PickupReportsController < ApplicationController
   end
 
   def update
-    pickup = Pickup.find(params[:id])
-    pickup.pickup_report.notes = pickup_params[:notes]
-    pickup.pickup_report.warehouse = Warehouse.find(pickup_params[:warehouse_id])
-    pickup.pickup_report.save!
+    report = PickupReport.find(params[:id])
+    report.notes = pickup_params[:notes]
+    report.warehouse = Warehouse.find(pickup_params[:warehouse_id])
+    report.save!
 
-    @report = PickupReport.find(params[:id])
-
-    @report.update_attributes(pickup_report_params)
+    report.update_attributes(pickup_report_params)
 
     pickup_params[:supplier_report].each do |sid, sv|
       sv[:food_type_report].each do |fid, fv|
@@ -49,7 +47,7 @@ class PickupReportsController < ApplicationController
     redirect_to thank_you_path
 
   end
-  # 
+  #
   # def summary
   #   # need pickup report with supplier report with food type and container report for each user
   #
