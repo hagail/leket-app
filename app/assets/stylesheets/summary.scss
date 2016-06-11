@@ -21,6 +21,7 @@ tr.pickup-report {
  .options {
   .modify_approval {
     color: white;
+    width: 70px;
 
     &[data-approved='false']{
      background: red;
