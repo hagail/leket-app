@@ -43,6 +43,40 @@ $(document).ready(function() {
     $(this).closest(".pickup-report").removeClass("closed");
   })
 
+  var approvedMouseenterHandle = function(){
+   var $button = $(this);
+   $button.css('background', 'red');
+   $button.text('פסול')
+   $button.on('mouseleave', approvedMouseleaveHandle);
+   $button.on('mouseenter', approvedMouseenterHandle);
+  }
+
+  var approvedMouseleaveHandle = function(){
+   var $button = $(this);
+   $button.css('background', '');
+   $button.text('מאושר')
+  }
+
+  var unapprovedMouseenterHandle = function(){
+   var $button = $(this);
+   $button.css('background', 'green');
+   $button.text('אישור');
+   $button.on('mouseleave', unapprovedMouseleaveHandle);
+   $button.on('mouseenter', unapprovedMouseenterHandle);
+  }
+
+  var unapprovedMouseleaveHandle = function(){
+   var $button = $(this);
+   $button.css('background', '');
+   $button.text('פסול')
+  }
+
+  $(".modify_approval[data-approved='true']").mouseenter(approvedMouseenterHandle)
+                                             .mouseleave(approvedMouseleaveHandle);
+
+  $(".modify_approval[data-approved='false']").mouseenter(unapprovedMouseenterHandle)
+                                              .mouseleave(unapprovedMouseleaveHandle);
+
   $(".approve_all").on("click", function(e){
    e.stopPropagation();
    e.preventDefault();
