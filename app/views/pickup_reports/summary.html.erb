@@ -56,7 +56,7 @@
               <td class="report_notes"><%= report.notes.blank? ? "אין הערות מתנדב" : report.notes %></td>
               <td class="options">
                <span class="modify_approval tiny button" data-approved="<%= report.pickup.approved? %>">
-                <%= report.pickup.approved? ? "Approved" : "Not Approved" %>
+                <%= report.pickup.approved? ? "מאושר" : "פסול" %>
                </span>
               </td>
             </tr>

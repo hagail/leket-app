@@ -18,9 +18,15 @@
 }
 
 tr.pickup-report {
+
+ &.unapproved{
+  background: #f8d0d0;
+ }
+
  .options {
   .modify_approval {
     color: white;
+    width: 70px;
 
     &[data-approved='false']{
      background: red;

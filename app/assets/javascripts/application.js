@@ -43,11 +43,45 @@ $(document).ready(function() {
     $(this).closest(".pickup-report").removeClass("closed");
   })
 
+  var approvedMouseenterHandle = function(){
+   var $button = $(this);
+   $button.css('background', 'red');
+   $button.text('פסול')
+   $button.on('mouseleave', approvedMouseleaveHandle);
+   $button.on('mouseenter', approvedMouseenterHandle);
+  }
+
+  var approvedMouseleaveHandle = function(){
+   var $button = $(this);
+   $button.css('background', '');
+   $button.text('מאושר')
+  }
+
+  var unapprovedMouseenterHandle = function(){
+   var $button = $(this);
+   $button.css('background', 'green');
+   $button.text('אישור');
+   $button.on('mouseleave', unapprovedMouseleaveHandle);
+   $button.on('mouseenter', unapprovedMouseenterHandle);
+  }
+
+  var unapprovedMouseleaveHandle = function(){
+   var $button = $(this);
+   $button.css('background', '');
+   $button.text('פסול')
+  }
+
+  $(".modify_approval[data-approved='true']").mouseenter(approvedMouseenterHandle)
+                                             .mouseleave(approvedMouseleaveHandle);
+
+  $(".modify_approval[data-approved='false']").mouseenter(unapprovedMouseenterHandle)
+                                              .mouseleave(unapprovedMouseleaveHandle);
+
   $(".approve_all").on("click", function(e){
    e.stopPropagation();
    e.preventDefault();
 
-   $(".pickup-report").each(function(){
+   $(".pickup-report.unapproved").each(function(){
 
     var report = $(this);
     var report_id = $(this).data("report-id");
@@ -58,6 +92,8 @@ $(document).ready(function() {
     })
     .done(function(){
       approveReport(report);
+      var $button = report.find(".modify_approval");
+      $button.on('mouseenter', approvedMouseenterHandle);
     })
    })
 
@@ -68,6 +104,7 @@ $(document).ready(function() {
     e.stopPropagation();
 
     var $button = $(this);
+    $button.off('mouseleave');
     var $report = $button.closest(".pickup-report");
     var report_id = $report.data("report-id");
     var pickup_id = $report.data("pickup-id");
@@ -80,9 +117,12 @@ $(document).ready(function() {
     .done(function(){
        if (approval == "unapprove") {
         unapproveReport($report)
+        $button.on('mouseenter', unapprovedMouseenterHandle);
+        $report.addClass('unapproved');
        }
        else{
         approveReport($report);
+        $button.on('mouseenter', approvedMouseenterHandle);
        }
     })
   });
@@ -93,11 +133,14 @@ $(document).ready(function() {
 function unapproveReport(report){
  var button = report.find(".modify_approval");
  button.attr("data-approved", "false");
- button.text("Unapproved");
+ button.text("פסול");
+ button.css('background','');
 }
 
 function approveReport(report){
  var button = report.find(".modify_approval");
  button.attr("data-approved", "true");
- button.text("Approved");
+ button.text("מאושר");
+ button.css('background','');
+ report.removeClass('unapproved');
 }
