@@ -92,6 +92,8 @@ $(document).ready(function() {
     })
     .done(function(){
       approveReport(report);
+      var $button = report.find(".modify_approval");
+      $button.on('mouseenter', approvedMouseenterHandle);
     })
    })
 
@@ -102,6 +104,7 @@ $(document).ready(function() {
     e.stopPropagation();
 
     var $button = $(this);
+    $button.off('mouseleave');
     var $report = $button.closest(".pickup-report");
     var report_id = $report.data("report-id");
     var pickup_id = $report.data("pickup-id");
@@ -114,9 +117,12 @@ $(document).ready(function() {
     .done(function(){
        if (approval == "unapprove") {
         unapproveReport($report)
+        $button.on('mouseenter', unapprovedMouseenterHandle);
+        $report.addClass('unapproved');
        }
        else{
         approveReport($report);
+        $button.on('mouseenter', approvedMouseenterHandle);
        }
     })
   });
