@@ -81,7 +81,7 @@ $(document).ready(function() {
    e.stopPropagation();
    e.preventDefault();
 
-   $(".pickup-report").each(function(){
+   $(".pickup-report.unapproved").each(function(){
 
     var report = $(this);
     var report_id = $(this).data("report-id");
