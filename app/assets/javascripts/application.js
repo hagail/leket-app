@@ -133,11 +133,14 @@ $(document).ready(function() {
 function unapproveReport(report){
  var button = report.find(".modify_approval");
  button.attr("data-approved", "false");
- button.text("Unapproved");
+ button.text("פסול");
+ button.css('background','');
 }
 
 function approveReport(report){
  var button = report.find(".modify_approval");
  button.attr("data-approved", "true");
- button.text("Approved");
+ button.text("מאושר");
+ button.css('background','');
+ report.removeClass('unapproved');
 }
