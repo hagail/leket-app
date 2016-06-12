@@ -12,30 +12,30 @@ describe PriorityParser do
 
       pickups = [Pickup.find_by_priority_id('108211'), Pickup.find_by_priority_id('108212')]
       expect(pickups.first).to have_attributes(
-        status: "נשלח מייל",
-        date: Date.strptime('15/2/16', '%d/%m/%y'),
+        status:   "נשלח מייל",
+        date:     Date.strptime('15/2/16', '%d/%m/%y'),
         supplier: Supplier.find_by_priority_id('FS000047'),
-        user: User.find_by_priority_id('VOL10000772')
+        user:     User.find_by_priority_id('VOL10000772')
       )
 
       expect(pickups.first.user).to have_attributes(
         email: 'oferei@014.net.il',
-        name: "עופר עילם",
+        name:  "עופר עילם",
         phone: '0523613666'
       )
 
       expect(pickups.first.supplier).to have_attributes(name: "מרכז עזריאלי")
 
       expect(pickups.second).to have_attributes(
-        status: "נשלח מייל",
-        date: Date.strptime('15/2/16', '%d/%m/%y'),
+        status:   "נשלח מייל",
+        date:     Date.strptime('15/2/16', '%d/%m/%y'),
         supplier: Supplier.find_by_priority_id('FS000394'),
-        user: User.find_by_priority_id('VOL10001862')
+        user:     User.find_by_priority_id('VOL10001862')
       )
 
       expect(pickups.second.user).to have_attributes(
         email: 'saharezri@gmail.com',
-        name: "סהר (שמחה) עזרי",
+        name:  "סהר (שמחה) עזרי",
         phone: '054-4401372'
       )
 

@@ -6,7 +6,7 @@ class AdminController < ApplicationController
   def summary
     # need pickup report with supplier report with food type and container report for each user
     approved = params[:approved] == 'yes' ? true : false
-    @reports = PickupReport.includes(supplier_reports: :supplier,
+    @reports = PickupReport.includes(supplier_reports:  :supplier,
                                      food_type_reports: :food_type,
                                      container_reports: :container)
                            .joins(:pickup)

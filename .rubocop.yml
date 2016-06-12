@@ -1,1 +1,34 @@
-inherit_from: ".rubocop_todo.yml"
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.2
+  Exclude:
+    - 'db/**/*'
+    - 'bin/**/*'
+Style/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+Lint/DefEndAlignment:
+  AutoCorrect: true
+Lint/EndAlignment:
+  AutoCorrect: true
+Style/SignalException:
+  EnforcedStyle: semantic
+Style/StringLiterals:
+  Enabled: false
+Style/WordArray:
+  Enabled: false
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+Style/DotPosition:
+  EnforcedStyle: leading
+Style/BracesAroundHashParameters:
+  Enabled: false
+Style/NumericLiterals:
+  MinDigits: 9
+Style/CaseIndentation:
+  IndentOneStep: true
+Style/SpecialGlobalVars:
+  Enabled: false
+Metrics/LineLength:
+  Max: 140

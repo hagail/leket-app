@@ -2,22 +2,22 @@
 
 class PriorityParser
   PICKUPS_MAP = {
-    id: 0,
-    date: 1,
-    user_id: 2,
-    user_name: 3,
-    user_phone: 4,
-    user_email: 5,
-    supplier_id: 7,
+    id:            0,
+    date:          1,
+    user_id:       2,
+    user_name:     3,
+    user_phone:    4,
+    user_email:    5,
+    supplier_id:   7,
     supplier_name: 8,
-    status: 9,
+    status:        9,
     sub_suppliers: Array.new(20) { |i| { id: i * 2 + 10, name: i * 2 + 11 } }
   }.freeze
 
   def self.process(pickups)
     pickups.each do |pickup|
       user = User.find_or_initialize_by(priority_id: pickup[PICKUPS_MAP[:user_id]])
-      user.assign_attributes(name: pickup[PICKUPS_MAP[:user_name]],
+      user.assign_attributes(name:  pickup[PICKUPS_MAP[:user_name]],
                              phone: pickup[PICKUPS_MAP[:user_phone]],
                              email: pickup[PICKUPS_MAP[:user_email]])
 
@@ -30,14 +30,14 @@ class PriorityParser
       end
 
       supplier = Supplier.find_or_initialize_by(priority_id: pickup[PICKUPS_MAP[:supplier_id]])
-      supplier.assign_attributes(name: pickup[PICKUPS_MAP[:supplier_name]],
+      supplier.assign_attributes(name:      pickup[PICKUPS_MAP[:supplier_name]],
                                  suppliers: sub_suppliers)
 
       new_pickup = Pickup.find_or_initialize_by(priority_id: pickup[PICKUPS_MAP[:id]])
-      new_pickup.assign_attributes(date: Date.strptime(pickup[PICKUPS_MAP[:date]], '%d/%m/%y'),
-                                   status: pickup[PICKUPS_MAP[:status]],
+      new_pickup.assign_attributes(date:     Date.strptime(pickup[PICKUPS_MAP[:date]], '%d/%m/%y'),
+                                   status:   pickup[PICKUPS_MAP[:status]],
                                    supplier: supplier,
-                                   user: user)
+                                   user:     user)
 
       new_pickup.save!
     end

@@ -21,9 +21,9 @@ describe Pickup do
   let(:sent_at) { nil }
   let(:pickup) do
     Pickup.create(priority_id: 10,
-                  status: 'status',
+                  status:      'status',
                   approved_at: approved_at,
-                  sent_at: sent_at)
+                  sent_at:     sent_at)
   end
 
   describe '.approved?' do

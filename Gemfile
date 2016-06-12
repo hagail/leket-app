@@ -9,7 +9,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks'
-gem "rails-i18n"
+gem 'rails-i18n'
 
 gem 'best_in_place'
 gem 'puma'
@@ -25,12 +25,11 @@ gem 'fastclick-rails'
 gem 'sass-rails', '~> 5'
 gem 'coffee-rails'
 
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'dotenv-rails', groups: [:development, :test]
 
-gem "rails-settings-cached"
+gem 'rails-settings-cached'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
-
 
 group :production do
   gem 'rails_12factor'
@@ -39,9 +38,9 @@ end
 group :development do
   gem 'quiet_assets'
   gem 'bullet'
-  gem "better_errors"
-  gem "binding_of_caller"
-  gem "bundler-audit"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'bundler-audit'
   gem 'rubocop'
 end
 
@@ -56,7 +55,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'poltergeist'
-  gem 'shoulda-matchers', '~> 2.8.0' , require: false
+  gem 'shoulda-matchers', '~> 2.8.0', require: false
   gem 'database_cleaner'
   gem 'annotate'
   gem 'simplecov'
