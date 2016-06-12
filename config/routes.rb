@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   get "admin/summary", to: "admin#summary", as: :pickups_summary
   post "pickup_reports/:id/approve", to: "admin#approve"
-  post "pickup_reports/:id/unapprove", to: "admin#approve"
+  post "pickup_reports/:id/unapprove", to: "admin#unapprove"
+  post "container_reports/:id/approve", to: "admin#container_approve"
+  post "container_reports/:id/unapprove", to: "admin#container_unapprove"
   get "dropbox/authorize", to: "admin#dropbox_authorization"
   get "dropbox/callback", to: "admin#dropbox_callback"
 

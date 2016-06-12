@@ -8,6 +8,7 @@
 #  updated_at          :datetime         not null
 #  container_id        :integer
 #  food_type_report_id :integer
+#  approved_at         :datetime
 #
 
 class ContainerReportsController < ApplicationController
