@@ -12,7 +12,7 @@
 class SupplierReport < ActiveRecord::Base
   belongs_to :pickup_report
   belongs_to :supplier
-  has_many   :food_type_reports
+  has_many   :food_type_reports, dependent: :destroy
 
   has_many :container_reports, through: :food_type_reports
 
