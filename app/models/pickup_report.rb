@@ -32,8 +32,13 @@ class PickupReport < ActiveRecord::Base
 
   def self.create_approved_csv
 
-    @reports = PickupReport.includes(supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container ).joins(:pickup).uniq
-    @reports = @reports.merge(Pickup.approved)
+    @reports = PickupReport.joins("LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id")
+                           .joins("LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id")
+                           .joins("LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id")
+                           .merge(ContainerReport.approved)
+                           .joins(:pickup)
+                           .uniq
+    # @reports = @reports.merge(Pickup.approved)
 
     # pickup.priority_id
     # pickup.date
@@ -66,20 +71,19 @@ class PickupReport < ActiveRecord::Base
         # next unless pickup_report.collected_any?
         pickup = pickup_report.pickup
         pickup_report.supplier_reports.each do |supplier_report|
-          next unless supplier_report.collected_any?
           supplier_report.food_type_reports.each do |food_report|
             food_report.container_reports.each do |container_report|
-              next unless container_report.collected_any?
+              next if !container_report.collected_any? || !container_report.approved?
               csv << [
-                        pickup.priority_id,                       #pickup id - pickup.priority_id
-                        pickup.date,                              #date - pickup.date
-                        supplier_report.top_supplier.priority_id, #main supplier - supplier_report.top_supplier.priority_id
-                        "7800018",                                #warehouse id
-                        "01",                                    #pickup reason id -
-                        supplier_report.supplier.priority_id,     #subsupplier - supplier_report.supplier.priority_id
-                        food_report.food_type.priority_id,        #food type - food_report.food_type.priority_id
-                        container_report.container.priority_id,   #container - container_report.container.priority_id
-                        container_report.quantity                 #quantity - container_report.quantity
+                        pickup.priority_id,                       # pickup id - pickup.priority_id
+                        pickup.date,                              # date - pickup.date
+                        supplier_report.top_supplier.priority_id, # main supplier - supplier_report.top_supplier.priority_id
+                        "7800018",                                # warehouse id
+                        "01",                                     # pickup reason id -
+                        supplier_report.supplier.priority_id,     # subsupplier - supplier_report.supplier.priority_id
+                        food_report.food_type.priority_id,        # food type - food_report.food_type.priority_id
+                        container_report.container.priority_id,   # container - container_report.container.priority_id
+                        container_report.quantity                 # quantity - container_report.quantity
                       ]
             end
           end

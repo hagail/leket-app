@@ -78,14 +78,13 @@ $(document).ready(function() {
   $(".approve_all").on("click", function(e){
    e.stopPropagation();
    e.preventDefault();
-
    $(".pickup-report.unapproved").each(function(){
-
     var report = $(this);
-    var report_id = $(this).data("report-id");
+    var report_id = report.data("report-id");
+    var container_id = report.data("container-report-id");
 
     $.ajax({
-      url: "/pickup_reports/" + report_id + "/" + "approve",
+      url: "/container_reports/" + container_id + "/" + "approve",
       method: "POST"
     })
     .done(function(){
@@ -94,8 +93,6 @@ $(document).ready(function() {
       $button.on('mouseenter', approvedMouseenterHandle);
     })
    })
-
-
   })
 
   $(".pickup-report .modify_approval").on("click", function(e){
@@ -105,11 +102,12 @@ $(document).ready(function() {
     $button.off('mouseleave');
     var $report = $button.closest(".pickup-report");
     var report_id = $report.data("report-id");
+    var container_id = $report.data("container-report-id");
     var pickup_id = $report.data("pickup-id");
     var approval = $button.attr("data-approved") == "true" ? "unapprove" : "approve"
 
     $.ajax({
-      url: "/pickup_reports/" + report_id + "/" + approval,
+      url: "/container_reports/" + container_id + "/" + approval,
       method: "POST"
     })
     .done(function(){
@@ -124,9 +122,7 @@ $(document).ready(function() {
        }
     })
   });
-
 });
-
 
 function unapproveReport(report){
  var button = report.find(".modify_approval");
