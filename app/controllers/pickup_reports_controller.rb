@@ -13,7 +13,6 @@
 #
 
 class PickupReportsController < ApplicationController
-
   prepend_before_action :authenticate_user!, excepy: [:summary, :approve]
   http_basic_authenticate_with name: 'test', password: 'test', only: [:summary, :approve]
 
@@ -36,8 +35,8 @@ class PickupReportsController < ApplicationController
 
     report.update_attributes(pickup_report_params)
 
-    pickup_params[:supplier_report].each do |sid, sv|
-      sv[:food_type_report].each do |fid, fv|
+    pickup_params[:supplier_report].each do |_sid, sv|
+      sv[:food_type_report].each do |_fid, fv|
         fv[:container_report].each do |cid, cv|
           ContainerReport.find(cid).update_attributes(quantity: cv[:quantity])
         end
@@ -45,7 +44,6 @@ class PickupReportsController < ApplicationController
     end
 
     redirect_to thank_you_path
-
   end
   #
   # def summary
@@ -93,5 +91,4 @@ class PickupReportsController < ApplicationController
   def pickup_report_params
     pickup_params.permit(:notes, :id)
   end
-
 end

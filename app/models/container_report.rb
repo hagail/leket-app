@@ -15,8 +15,8 @@ class ContainerReport < ActiveRecord::Base
   belongs_to :container
   belongs_to :food_type_report
 
-  scope :used, ->{ where("container_reports.quantity > 0")}
-  scope :approved, -> {where("container_reports.approved_at IS NOT NULL")}
+  scope :used, -> { where('container_reports.quantity > 0') }
+  scope :approved, -> { where('container_reports.approved_at IS NOT NULL') }
 
   def collected_any?
     quantity > 0
@@ -27,10 +27,10 @@ class ContainerReport < ActiveRecord::Base
   end
 
   def approve!
-    self.update_column(:approved_at, Time.now)
+    update_column(:approved_at, Time.now)
   end
 
   def unapprove!
-    self.update_column(:approved_at, nil)
+    update_column(:approved_at, nil)
   end
 end

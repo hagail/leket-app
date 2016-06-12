@@ -1,43 +1,43 @@
-#encoding: UTF-8
+# encoding: UTF-8
 
 require 'spec_helper'
 require 'csv'
 
 describe PriorityParser do
-  describe ".process" do
-    let(:pickups_from_file) { CSV.read("spec/fixtures/isuf.txt", col_sep: "\t", encoding: "Windows-1255")[1..-1] }
+  describe '.process' do
+    let(:pickups_from_file) { CSV.read('spec/fixtures/isuf.txt', col_sep: "\t", encoding: 'Windows-1255')[1..-1] }
 
-    it "process pickups into the database" do
+    it 'process pickups into the database' do
       PriorityParser.process(pickups_from_file)
 
-      pickups = [Pickup.find_by_priority_id("108211"), Pickup.find_by_priority_id("108212")]
+      pickups = [Pickup.find_by_priority_id('108211'), Pickup.find_by_priority_id('108212')]
       expect(pickups.first).to have_attributes(
-                                   status: "נשלח מייל",
-                                   date: Date.strptime("15/2/16", "%d/%m/%y"),
-                                   supplier: Supplier.find_by_priority_id("FS000047"),
-                                   user: User.find_by_priority_id("VOL10000772")
-                               )
+        status:   "נשלח מייל",
+        date:     Date.strptime('15/2/16', '%d/%m/%y'),
+        supplier: Supplier.find_by_priority_id('FS000047'),
+        user:     User.find_by_priority_id('VOL10000772')
+      )
 
       expect(pickups.first.user).to have_attributes(
-                                        email: "oferei@014.net.il",
-                                        name: "עופר עילם",
-                                        phone: "0523613666",
-                                    )
+        email: 'oferei@014.net.il',
+        name:  "עופר עילם",
+        phone: '0523613666'
+      )
 
       expect(pickups.first.supplier).to have_attributes(name: "מרכז עזריאלי")
 
       expect(pickups.second).to have_attributes(
-                                   status: "נשלח מייל",
-                                   date: Date.strptime("15/2/16", "%d/%m/%y"),
-                                   supplier: Supplier.find_by_priority_id("FS000394"),
-                                   user: User.find_by_priority_id("VOL10001862")
-                               )
+        status:   "נשלח מייל",
+        date:     Date.strptime('15/2/16', '%d/%m/%y'),
+        supplier: Supplier.find_by_priority_id('FS000394'),
+        user:     User.find_by_priority_id('VOL10001862')
+      )
 
       expect(pickups.second.user).to have_attributes(
-                                        email: "saharezri@gmail.com",
-                                        name: "סהר (שמחה) עזרי",
-                                        phone: "054-4401372",
-                                    )
+        email: 'saharezri@gmail.com',
+        name:  "סהר (שמחה) עזרי",
+        phone: '054-4401372'
+      )
 
       expect(pickups.first.supplier).to have_attributes(name: "מרכז עזריאלי")
 
@@ -54,11 +54,11 @@ describe PriorityParser do
       expect(pickups.first.supplier.suppliers[10]).to have_attributes(name: "קפה הלל עזריאלי")
     end
 
-    it "overrides existing pickups" do
+    it 'overrides existing pickups' do
       PriorityParser.process(pickups_from_file)
 
-      pickup = Pickup.find_by_priority_id("108211")
-      pickup.status = "This should be changed by the second process"
+      pickup = Pickup.find_by_priority_id('108211')
+      pickup.status = 'This should be changed by the second process'
       pickup.save!
 
       PriorityParser.process(pickups_from_file)
