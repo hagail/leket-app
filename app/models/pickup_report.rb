@@ -17,7 +17,7 @@ class PickupReport < ActiveRecord::Base
   belongs_to :pickup
   belongs_to :pickup_reason
   belongs_to :warehouse
-  has_many :supplier_reports
+  has_many :supplier_reports, dependent: :destroy
 
   has_many :food_type_reports, through: :supplier_reports
   has_many :container_reports, through: :food_type_reports
