@@ -20,19 +20,19 @@ class Pickup < ActiveRecord::Base
   has_one :pickup_report
   alias_attribute :report, :pickup_report
 
-  scope :approved, ->{ where("pickups.approved_at IS NOT NULL")}
-  scope :not_approved, ->{ where("pickups.approved_at IS NULL")}
+  scope :approved, -> { where('pickups.approved_at IS NOT NULL') }
+  scope :not_approved, -> { where('pickups.approved_at IS NULL') }
 
   def approved?
     !approved_at.nil?
   end
 
   def approve!
-    self.update_column(:approved_at, Time.now)
+    update_column(:approved_at, Time.now)
   end
 
   def unapprove!
-    self.update_column(:approved_at, nil)
+    update_column(:approved_at, nil)
   end
 
   def sent?
@@ -40,6 +40,6 @@ class Pickup < ActiveRecord::Base
   end
 
   def sent!
-    self.update_column(:sent_at, Time.now)
+    update_column(:sent_at, Time.now)
   end
 end

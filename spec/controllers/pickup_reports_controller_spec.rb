@@ -11,4 +11,3 @@
 #  warehouse_id     :integer
 #  pickup_reason_id :integer
 #
-

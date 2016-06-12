@@ -23,7 +23,7 @@ class PickupReport < ActiveRecord::Base
   has_many :container_reports, through: :food_type_reports
 
   def collected_any?
-    container_reports.any?{|x| x.collected_any? }
+    container_reports.any?(&:collected_any?)
   end
 
   def self.report_file_name
@@ -31,10 +31,9 @@ class PickupReport < ActiveRecord::Base
   end
 
   def self.create_approved_csv
-
-    @reports = PickupReport.joins("LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id")
-                           .joins("LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id")
-                           .joins("LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id")
+    @reports = PickupReport.joins('LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id')
+                           .joins('LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id')
+                           .joins('LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id')
                            .merge(ContainerReport.approved)
                            .joins(:pickup)
                            .uniq
@@ -55,18 +54,16 @@ class PickupReport < ActiveRecord::Base
     #   end
     # end
 
-
-    ::CSV.open(report_file_name, "wb",  {row_sep: "\n" ,col_sep: "\t"}) do |csv|
-      csv << ["id",
-              "date",
-              "main_supplier",
-              "warehouse",
-              "pickup_reason",
-              "subsupplier",
-              "food_type",
-              "container",
-              "quantity"
-            ]
+    ::CSV.open(report_file_name, 'wb',  row_sep: "\n", col_sep: "\t") do |csv|
+      csv << %w(id
+                date
+                main_supplier
+                warehouse
+                pickup_reason
+                subsupplier
+                food_type
+                container
+                quantity)
       @reports.each do |pickup_report|
         # next unless pickup_report.collected_any?
         pickup = pickup_report.pickup
@@ -75,21 +72,20 @@ class PickupReport < ActiveRecord::Base
             food_report.container_reports.each do |container_report|
               next if !container_report.collected_any? || !container_report.approved?
               csv << [
-                        pickup.priority_id,                       # pickup id - pickup.priority_id
-                        pickup.date,                              # date - pickup.date
-                        supplier_report.top_supplier.priority_id, # main supplier - supplier_report.top_supplier.priority_id
-                        "7800018",                                # warehouse id
-                        "01",                                     # pickup reason id -
-                        supplier_report.supplier.priority_id,     # subsupplier - supplier_report.supplier.priority_id
-                        food_report.food_type.priority_id,        # food type - food_report.food_type.priority_id
-                        container_report.container.priority_id,   # container - container_report.container.priority_id
-                        container_report.quantity                 # quantity - container_report.quantity
-                      ]
+                pickup.priority_id, # pickup id - pickup.priority_id
+                pickup.date,                              # date - pickup.date
+                supplier_report.top_supplier.priority_id, # main supplier - supplier_report.top_supplier.priority_id
+                '7800018',                                # warehouse id
+                '01',                                     # pickup reason id -
+                supplier_report.supplier.priority_id,     # subsupplier - supplier_report.supplier.priority_id
+                food_report.food_type.priority_id,        # food type - food_report.food_type.priority_id
+                container_report.container.priority_id,   # container - container_report.container.priority_id
+                container_report.quantity                 # quantity - container_report.quantity
+              ]
             end
           end
         end
       end
     end
   end
-
 end

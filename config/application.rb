@@ -25,7 +25,7 @@ module LeketApp
     config.active_record.raise_in_transactional_callbacks = true
 
     config.generators do |g|
-        g.test_framework nil
+      g.test_framework nil
     end
   end
 end

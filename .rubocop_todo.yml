@@ -364,11 +364,3 @@ Style/TrailingWhitespace:
 # SupportedStyles: snake_case, camelCase
 Style/VariableName:
   Enabled: false
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles, WordRegex.
-# SupportedStyles: percent, brackets
-Style/WordArray:
-  EnforcedStyle: percent
-  MinSize: -Infinity

@@ -17,11 +17,10 @@ class SupplierReport < ActiveRecord::Base
   has_many :container_reports, through: :food_type_reports
 
   def collected_any?
-    container_reports.any?{|x| x.collected_any?}
+    container_reports.any?(&:collected_any?)
   end
 
   def top_supplier
     supplier.supplier_id.nil? ? supplier : supplier.supplier
   end
-
 end
