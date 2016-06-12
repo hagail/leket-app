@@ -1,0 +1,3 @@
+id	date	main_supplier	warehouse	pickup_reason	subsupplier	food_type	container	quantity
+108211	2016-02-15	FS000047	7800018	01	FS000216	NP0004	01	14
+108211	2016-02-15	FS000047	7800018	01	FS000216	NP0004	02	1
