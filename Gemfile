@@ -42,6 +42,7 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "bundler-audit"
+  gem 'rubocop'
 end
 
 group :development, :test do
