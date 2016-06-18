@@ -19,7 +19,7 @@ class PickupsController < ApplicationController
 
   def index
     @user = current_user
-    @pickup_reasons = PickupReason.all
+    @pickup_reasons = PickupReason.user_displayable
   end
 
   def mark_as_not_picked

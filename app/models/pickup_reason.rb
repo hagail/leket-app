@@ -20,7 +20,7 @@ class PickupReason < ActiveRecord::Base
   # 06,מתנדב לא הלך
   DISPLAY_TO_USER = %w(01 02 04 05 06).freeze
 
-  scope :user_displayed, -> { where(user_displayed: true) }
+  scope :user_displayable, -> { where(user_displayed: true) }
 
   def self.process_from_csv(filename)
     reasons_from_file = CSV.read(filename, col_sep: ",")[1..-1]
