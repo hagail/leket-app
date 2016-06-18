@@ -73,14 +73,14 @@ class PickupReport < ActiveRecord::Base
               next if !container_report.collected_any? || !container_report.approved?
               csv << [
                 pickup.priority_id, # pickup id - pickup.priority_id
-                pickup.date,                              # date - pickup.date
-                supplier_report.top_supplier.priority_id, # main supplier - supplier_report.top_supplier.priority_id
-                '7800018',                                # warehouse id
-                '01',                                     # pickup reason id -
-                supplier_report.supplier.priority_id,     # subsupplier - supplier_report.supplier.priority_id
-                food_report.food_type.priority_id,        # food type - food_report.food_type.priority_id
-                container_report.container.priority_id,   # container - container_report.container.priority_id
-                container_report.quantity                 # quantity - container_report.quantity
+                pickup.date,                               # date - pickup.date
+                supplier_report.top_supplier.priority_id,  # main supplier - supplier_report.top_supplier.priority_id
+                pickup_report.warehouse.priority_id,       # warehouse id
+                supplier_report.pickup_reason.priority_id, # pickup reason id -
+                supplier_report.supplier.priority_id,      # subsupplier - supplier_report.supplier.priority_id
+                food_report.food_type.priority_id,         # food type - food_report.food_type.priority_id
+                container_report.container.priority_id,    # container - container_report.container.priority_id
+                container_report.quantity                  # quantity - container_report.quantity
               ]
             end
           end
