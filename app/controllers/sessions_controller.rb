@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+
+  before_action :check_email, only: :create
+
   def new
   end
 
@@ -21,5 +24,16 @@ class SessionsController < ApplicationController
     sign_out
 
     redirect_to new_session_path
+  end
+
+
+  private
+
+  def check_email
+   if params[:email].blank?
+    flash.alert = "לא נמצא משתמש"
+
+    redirect_to new_session_path
+   end
   end
 end
