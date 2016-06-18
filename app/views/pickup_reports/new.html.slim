@@ -6,7 +6,7 @@ div
     .row
       .small-60
         = pickup_report_form.label(:warehouse_id, "בחר מקום איסוף")
-        = pickup_report_form.collection_select(:warehouse_id, Warehouse.all, :id, :name)
+        = pickup_report_form.collection_select(:warehouse_id, Warehouse.all, :id, :name_with_address)
     .other-container.row
       .other.columns.small-60
         = pickup_report_form.text_area(:notes, class: "form-control other--text-area", placeholder: "+ הוסף הערה")
