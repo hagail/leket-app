@@ -7,12 +7,15 @@
 #  updated_at       :datetime         not null
 #  pickup_report_id :integer
 #  supplier_id      :integer
+#  pickup_reason_id :integer
 #
 
 class SupplierReport < ActiveRecord::Base
   belongs_to :pickup_report
   belongs_to :supplier
   has_many   :food_type_reports, dependent: :destroy
+  belongs_to :pickup_reason
+
 
   has_many :container_reports, through: :food_type_reports
 
