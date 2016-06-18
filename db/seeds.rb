@@ -51,7 +51,7 @@ PriorityParser.process(pickups_from_file)
 end
 
 ### Set Pickup Reasons ###
-PickupReason.create([{ name: "לא היה אוכל" }, { name: "היה סגור" }, { name: "לא ענו בטלפון" }])
+PickupReason.process_from_csv("db/pickup_reasons.csv")
 
 ### Set Warehouses ###
 Warehouse.process_from_csv("db/warehouses.csv")
