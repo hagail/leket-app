@@ -18,9 +18,9 @@ class PickupReason < ActiveRecord::Base
   # 04,אחר
   # 05,איש קשר לא ענה
   # 06,מתנדב לא הלך
-  DISPLAY_TO_USER = %w(01 02 04 05 06).freeze
+  DISPLAY_TO_USER = %w(02 04 05).freeze
 
-  scope :user_displayable, -> { where(user_displayed: true) }
+  scope :user_displayable_without_other, -> { where(user_displayed: true).where("priority_id <> '04'") }
 
   def self.process_from_csv(filename)
     reasons_from_file = CSV.read(filename, col_sep: ",")[1..-1]
