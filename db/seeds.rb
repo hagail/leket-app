@@ -54,4 +54,4 @@ end
 PickupReason.create([{ name: "לא היה אוכל" }, { name: "היה סגור" }, { name: "לא ענו בטלפון" }])
 
 ### Set Warehouses ###
-Warehouse.process_from_csv("db/warehouse.csv")
+Warehouse.process_from_csv("warehouse.csv")
