@@ -3,10 +3,10 @@
     .supplier-title
       = supplier_report.supplier.name
       .notice-supplier class=(supplier_report.collected_any? ? "hidden" : "")
-        span לא נאסף
-        a.rsvp.reason.secondary style="text-decoration: underline;" href="#" data-reveal-id="noPickup#{supplier_report.id}"  #{supplier_report.pickup_reason.present? ? supplier_report.pickup_reason.name : " בחר/י סיבה לאי-איסוף " }
+        span לא נאסף - 
+        a.rsvp.reason.secondary style="text-decoration: underline;" href="#" data-reveal-id="noPickup#{supplier_report.id}"  #{supplier_report.pickup_reason.present? ? supplier_report.pickup_reason.name : "בחר/י סיבה לאי-איסוף" }
         .reveal-modal id="noPickup#{supplier_report.id}" data-reveal="" aria-labelledby="modalTitle" aria-hidden="true" role="dialog"
-          h2#modalTitle סיבה לאי-איסוף מ-#{supplier_report.supplier.name}
+          h2#modalTitle סיבה לאי-איסוף מ - #{supplier_report.supplier.name}
           p.lead
             - PickupReason.user_displayable_without_other.each do |pickup_reason|
               a.reason-button.button data-pickup-id="#{supplier_report.pickup_report.id}" data-sr-id="#{supplier_report.id}" data-reason-id="#{pickup_reason.id}" #{pickup_reason.name}
