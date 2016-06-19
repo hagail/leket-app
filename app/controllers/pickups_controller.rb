@@ -19,17 +19,16 @@ class PickupsController < ApplicationController
 
   def index
     @user = current_user
-    @pickup_reasons = PickupReason.user_displayable
+    @pickup_reasons = PickupReason.user_displayable_without_other
   end
 
   def mark_as_not_picked
-    pickup = Pickup.find(params.require(:pickup_id))
+    pr = PickupReport.find(params.require(:pickup_id))
+    sr = pr.supplier_reports.find(params.require(:sr_id))
+    sr.pickup_reason = PickupReason.find(params.require(:reason_id))
+    sr.save!
 
-    pickup_report = PickupReport.new(pickup: pickup)
-    pickup_report.pickup_reason = PickupReason.find(params.require(:reason_id))
-    pickup_report.save!
-
-    redirect_to pickups_path
+    render json: {reason: sr.pickup_reason.name, sr_id: sr.id}
   end
 
   def thank_you

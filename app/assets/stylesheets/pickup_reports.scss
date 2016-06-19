@@ -24,6 +24,19 @@
   color: #FFFFFF;
 }
 
+.notice-supplier{
+ margin-top: 0;
+ background-color: red;
+ width: 100%;
+ text-align: center;
+ font-size: rem-calc(30);
+ color: white;
+
+ &.hidden{
+  display: none;
+ }
+}
+
 .food-type-report {
   margin-top: rem-calc(20);
   margin-bottom: rem-calc(50);
