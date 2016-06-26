@@ -41,7 +41,7 @@
       <% report.supplier_reports.map do |supp_report| %>
         <% supp_report.food_type_reports.map do |food_type_report| %>
           <% food_type_report.container_reports.map do |container_report| %>
-            <% next if !container_report.collected_any? %>
+            <% next if !container_report.collected_any? && supp_report.pickup_reason_id.nil? %>
             <tr class="pickup-report" data-report-id="<%= report.id %>" data-container-report-id="<%= container_report.id %>" data-pickup-id="<%= report.pickup.id %>">
               <td class="report_id"><%= report.id %></td>
               <td class="user_name"><%= report.pickup.user.name %></td>
@@ -49,7 +49,7 @@
               <td class="user_email"><%= report.pickup.user.email %></td>
               <td class="supplier_name"><%= supp_report.supplier.name %></td>
               <td class="pickup_date"><%= report.pickup.date %></td>
-              <td class="pickup_reason"><%= report.pickup_reason.try(:name) %></td>
+              <td class="pickup_reason"><%= supp_report.pickup_reason.try(:name) %></td>
               <td class="food_type_name"><%= food_type_report.name %></td>
               <td class="container_name"><%= container_report.container.name %></td>
               <td class="container_quantity"><%= best_in_place container_report, :quantity, input: :text %></td>
