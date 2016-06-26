@@ -28,7 +28,16 @@ class PickupsController < ApplicationController
     sr.pickup_reason = PickupReason.find(params.require(:reason_id))
     sr.save!
 
-    render json: {reason: sr.pickup_reason.name, sr_id: sr.id}
+    render json: { reason: sr.pickup_reason.name, sr_id: sr.id }
+  end
+
+  def sr_reset_picked
+   pr = PickupReport.find(params.require(:pickup_id))
+   sr = pr.supplier_reports.find(params.require(:sr_id))
+   sr.pickup_reason = nil
+   sr.save!
+
+   head :ok
   end
 
   def thank_you
