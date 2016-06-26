@@ -14,7 +14,7 @@ css:
         = form_tag session_path
           .row
             .large-60.columns
-              = email_field_tag(:email, nil, placeholder: "כתובת מייל")
+              = email_field_tag(:email, nil, placeholder: "כתובת מייל", required: true)
           .row
             .large-60.large-centered.columns
               = submit_tag("התחבר", class: "button expand")
