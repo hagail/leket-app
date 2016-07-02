@@ -22,6 +22,10 @@ class PickupReason < ActiveRecord::Base
 
   scope :user_displayable_without_other, -> { where(user_displayed: true).where("priority_id <> '04'") }
 
+  def self.reasons_collection
+    PickupReason.where("priority_id <> '04'").map { |i| [i.id, i.name] }
+  end
+
   def self.process_from_csv(filename)
     reasons_from_file = CSV.read(filename, col_sep: ",")[1..-1]
     reasons_from_file.map do |reason_line|
