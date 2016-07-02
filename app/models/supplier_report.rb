@@ -30,4 +30,25 @@ class SupplierReport < ActiveRecord::Base
   def top_supplier
     supplier.supplier_id.nil? ? supplier : supplier.supplier
   end
+
+  def pickup_reason_by_condition!
+    check_there_was_food!
+    check_volunteer_didnt_go!
+  end
+
+  def check_there_was_food!
+    # if something was collected add to it there was food
+    if collected_any? && pickup_reason_id.blank?
+      reason = PickupReason.where(priority_id: "01").first
+      update_column(:pickup_reason_id, reason.id)
+    end
+  end
+
+  def check_volunteer_didnt_go!
+    # if something was collected add to it there was food
+    if !collected_any? && pickup_reason_id.blank?
+      reason = PickupReason.where(priority_id: "06").first
+      update_column(:pickup_reason_id, reason.id)
+    end
+  end
 end
