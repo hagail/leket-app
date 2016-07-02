@@ -45,7 +45,7 @@
               <td class="pickup_reason"><%= supp_report.pickup_reason.try(:name) %></td>
               <td class="food_type_name"><%= food_type_report.name %></td>
               <td class="container_name"><%= container_report.container.name %></td>
-              <td class="container_quantity"><%= best_in_place container_report, :quantity, input: :text %></td>
+              <td class="container_quantity"><%= best_in_place container_report, :quantity, input: :text , ok_button: "שמור", ok_button_class: "button tiny success"%></td>
               <td class="report_notes"><%= report.notes.blank? ? "אין הערות מתנדב" : report.notes %></td>
               <td class="options">
                <span class="modify_approval tiny button <%= container_report.approved? ? 'success' : 'alert' %>" data-approved="<%= container_report.approved? %>">
