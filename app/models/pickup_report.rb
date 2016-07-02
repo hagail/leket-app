@@ -31,16 +31,19 @@ class PickupReport < ActiveRecord::Base
   end
 
   def self.create_approved_csv
-    @reports = PickupReport.joins('LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id')
-                           .joins('LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id')
-                           .joins('LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id')
-                           .merge(ContainerReport.approved)
-                           .joins(:pickup)
-                           .uniq
-    # @reports = @reports.merge(Pickup.approved)
+    # if nothing was collected and there is no reason, add to it reason of user didnt go
+    reports = PickupReport.joins('LEFT JOIN pickups ON pickup_reports.pickup_id = pickups.id')
+                          .merge(Pickup.not_sent)
 
+    reports.map(&:supplier_reports).flatten.map(&:pickup_reason_by_condition!)
 
-    ::CSV.open(report_file_name, 'wb',  row_sep: "\n", col_sep: "\t") do |csv|
+    reports_to_export = reports.joins('LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id')
+                               .joins('LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id')
+                               .joins('LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id')
+                               .uniq
+    # .merge(ContainerReport.approved)
+
+    ::CSV.open(report_file_name, 'wb', row_sep: "\n", col_sep: "\t") do |csv|
       csv << %w(id
                 date
                 main_supplier
@@ -50,15 +53,26 @@ class PickupReport < ActiveRecord::Base
                 food_type
                 container
                 quantity)
-      @reports.each do |pickup_report|
+      reports_to_export.each do |pickup_report|
         # next unless pickup_report.collected_any?
         pickup = pickup_report.pickup
         pickup_report.supplier_reports.each do |supplier_report|
+          if !supplier_report.collected_any? && !supplier_report.pickup_reason_id.nil?
+            csv << [
+              pickup.priority_id,                        # pickup id - pickup.priority_id
+              pickup.date,                               # date - pickup.date
+              supplier_report.top_supplier.priority_id,  # main supplier - supplier_report.top_supplier.priority_id
+              supplier_report.pickup_reason.priority_id, # pickup reason id -
+            ]
+            next
+          end
+
           supplier_report.food_type_reports.each do |food_report|
             food_report.container_reports.each do |container_report|
-              next if !container_report.collected_any? || !container_report.approved?
+              next unless container_report.collected_any?
+              next if container_report.collected_any? && !container_report.approved?
               csv << [
-                pickup.priority_id, # pickup id - pickup.priority_id
+                pickup.priority_id,                        # pickup id - pickup.priority_id
                 pickup.date,                               # date - pickup.date
                 supplier_report.top_supplier.priority_id,  # main supplier - supplier_report.top_supplier.priority_id
                 pickup_report.warehouse.priority_id,       # warehouse id
@@ -71,6 +85,8 @@ class PickupReport < ActiveRecord::Base
             end
           end
         end
+        # if report was added to csv, so its sent
+        pickup_report.pickup.sent!
       end
     end
   end
