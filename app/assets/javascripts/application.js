@@ -30,8 +30,21 @@ $(document).ready(function() {
        }
   });
 
-  $("#searchbox").on("keyup search input paste cut", function() {
+  $('#summary_table_not_collected').DataTable({
+   "destroy": true,
+    "paging": false,
+    "info": false,
+    "oLanguage": {
+         "sSearch": "חיפוש"
+       }
+  });
+
+  $("#searchbox.all").on("keyup search input paste cut", function() {
      $('#summary_table').DataTable().search(this.value).draw();
+  });
+
+  $("#searchbox.not").on("keyup search input paste cut", function() {
+     $('#summary_table_not_collected').DataTable().search(this.value).draw();
   });
 
   $(".best_in_place").best_in_place();

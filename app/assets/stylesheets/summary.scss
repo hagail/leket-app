@@ -1,4 +1,4 @@
-#summary_table_wrapper {
+#summary_table_wrapper, #summary_table_not_collected_wrapper {
  width  : 85% !important;
  margin : auto auto !important;
 
@@ -6,7 +6,7 @@
     display: none;
  }
 
-  #summary_table {
+  #summary_table, #summary_table_not_collected {
     * {
       font-size   : 0.8rem;
       line-height : 1.2rem;
