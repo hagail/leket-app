@@ -19,6 +19,10 @@ class SupplierReport < ActiveRecord::Base
 
   has_many :container_reports, through: :food_type_reports
 
+  def pickup_reason_name
+    pickup_reason.andand.name
+  end
+
   def collected_any?
     container_reports.any?(&:collected_any?)
   end
