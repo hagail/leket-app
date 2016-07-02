@@ -39,20 +39,6 @@ class PickupReport < ActiveRecord::Base
                            .uniq
     # @reports = @reports.merge(Pickup.approved)
 
-    # pickup.priority_id
-    # pickup.date
-    # pickup_report.warehouse.priority_id
-    # pickup_report.pickup_reason.priority_id
-    # pickup_report.suppliers do
-    #   supplier.food_type_reports do
-    #     supplier.priority_id
-    #     food_type_report.container_report
-    #       food_type_report.food_type.priority_id
-    #       container_report.quantity
-    #       container_report.priority_id
-    #     end
-    #   end
-    # end
 
     ::CSV.open(report_file_name, 'wb',  row_sep: "\n", col_sep: "\t") do |csv|
       csv << %w(id
