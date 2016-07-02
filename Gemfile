@@ -14,6 +14,7 @@ gem 'rails-i18n'
 gem 'best_in_place'
 gem 'puma'
 
+gem 'andand'
 gem 'dropbox-sdk'
 
 # Asset related
