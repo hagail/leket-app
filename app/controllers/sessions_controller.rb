@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-
   before_action :check_email, only: :create
 
   def new
@@ -26,14 +25,13 @@ class SessionsController < ApplicationController
     redirect_to new_session_path
   end
 
-
   private
 
   def check_email
-   if params[:email].blank?
-    flash.alert = "לא נמצא משתמש"
+    if params[:email].blank?
+      flash.alert = "לא נמצא משתמש"
 
-    redirect_to new_session_path
-   end
+      redirect_to new_session_path
+    end
   end
 end

@@ -32,12 +32,12 @@ class PickupsController < ApplicationController
   end
 
   def sr_reset_picked
-   pr = PickupReport.find(params.require(:pickup_id))
-   sr = pr.supplier_reports.find(params.require(:sr_id))
-   sr.pickup_reason = nil
-   sr.save!
+    pr = PickupReport.find(params.require(:pickup_id))
+    sr = pr.supplier_reports.find(params.require(:sr_id))
+    sr.pickup_reason = nil
+    sr.save!
 
-   head :ok
+    head :ok
   end
 
   def thank_you
