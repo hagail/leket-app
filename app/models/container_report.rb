@@ -15,8 +15,12 @@ class ContainerReport < ActiveRecord::Base
   belongs_to :container
   belongs_to :food_type_report
 
+  delegate :supplier_report, to: :food_type_report
+
   scope :used, -> { where('container_reports.quantity > 0') }
   scope :approved, -> { where('container_reports.approved_at IS NOT NULL') }
+  scope :collected, -> { where('container_reports.quantity > 0') }
+  scope :not_collected, -> { where('container_reports.quantity = 0') }
 
   def collected_any?
     quantity > 0

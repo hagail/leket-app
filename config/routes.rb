@@ -6,8 +6,10 @@ Rails.application.routes.draw do
     resources :pickup_reports, only: [:new, :update], shallow: true
 
     post 'not_picked' => 'pickups#mark_as_not_picked'
+    post 'reset_picked' => 'pickups#sr_reset_picked'
   end
 
+  resources :supplier_reports, only: :update
   resource :session, only: [:new, :create, :destroy]
 
   get 'thank_you' => 'pickups#thank_you'

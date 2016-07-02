@@ -1,15 +1,7 @@
-<div class="text-center">
-<%= link_to "מאושרים", pickups_summary_path(approved: 'yes') %>
-<%= link_to "חדשים", pickups_summary_path(approved: 'no') %>
-</div>
-
-
-
-
 
 
 <div class="row">
- <input type="text" id="searchbox" placeholder="חיפוש / סינון">
+ <input type="text" id="searchbox" class="all" placeholder="חיפוש / סינון">
  <a href="#" class="button approve_all">
   אישור כולל
  </a>
@@ -39,24 +31,25 @@
     <% @reports.map do |report| %>
       <% next unless report.collected_any? %>
       <% report.supplier_reports.map do |supp_report| %>
+           <% next unless supp_report.collected_any? %>
         <% supp_report.food_type_reports.map do |food_type_report| %>
           <% food_type_report.container_reports.map do |container_report| %>
             <% next if !container_report.collected_any? %>
-            <tr class="pickup-report" data-report-id="<%= report.id %>" data-container-report-id="<%= container_report.id %>" data-pickup-id="<%= report.pickup.id %>">
+            <tr class="pickup-report <%= container_report.approved? ? '' : 'unapproved'%>" data-report-id="<%= report.id %>" data-container-report-id="<%= container_report.id %>" data-pickup-id="<%= report.pickup.id %>">
               <td class="report_id"><%= report.id %></td>
               <td class="user_name"><%= report.pickup.user.name %></td>
               <td class="user_priority_id"><%= report.pickup.user.priority_id %></td>
               <td class="user_email"><%= report.pickup.user.email %></td>
               <td class="supplier_name"><%= supp_report.supplier.name %></td>
               <td class="pickup_date"><%= report.pickup.date %></td>
-              <td class="pickup_reason"><%= report.pickup_reason.try(:name) %></td>
+              <td class="pickup_reason"><%= supp_report.pickup_reason.try(:name) %></td>
               <td class="food_type_name"><%= food_type_report.name %></td>
               <td class="container_name"><%= container_report.container.name %></td>
-              <td class="container_quantity"><%= best_in_place container_report, :quantity, input: :text %></td>
+              <td class="container_quantity"><%= best_in_place container_report, :quantity, input: :text , ok_button: "שמור", ok_button_class: "button tiny success"%></td>
               <td class="report_notes"><%= report.notes.blank? ? "אין הערות מתנדב" : report.notes %></td>
               <td class="options">
-               <span class="modify_approval tiny button" data-approved="<%= report.pickup.approved? %>">
-                <%= report.pickup.approved? ? "מאושר" : "פסול" %>
+               <span class="modify_approval tiny button <%= container_report.approved? ? 'success' : 'alert' %>" data-approved="<%= container_report.approved? %>">
+                <%= container_report.approved? ? "מאושר" : "פסול" %>
                </span>
               </td>
             </tr>
@@ -68,73 +61,46 @@
   </tbody>
 </table>
 
+<div class="row">
+ <input type="text" id="searchbox" class="not" placeholder="חיפוש / סינון">
+</div>
 
 
+<table id="summary_table_not_collected" class="hover display dataTable" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>מס דיווח</th>
+      <th>שם</th>
+      <th>מזהה משתמש</th>
+      <th>אימייל</th>
+      <th>ספק</th>
+      <th>תאריך איסוף</th>
+      <th>סיבת איסוף</th>
+      <th>הערות משתמש</th>
+    </tr>
+  </thead>
 
-
-
-
-
-
-
-<!--
-
-<div id="summary">
-  <% @reports.map do |report| %>
-    <% next unless report.collected_any? %>
-    <div class="pickup-report">
-      <div class="edit">
-      <i class="fi-page-edit"> </i>
-      </div>
-      <span class="report_id"> <%= report.id %> </span>
-
-      <div class="data" >
-        <div class="reports right" >
-          <% report.supplier_reports.map do |supp_report| %>
-            <% next unless supp_report.collected_any? %>
-            <div class="supplier-report">
-              <div class="supplier-name"> <%= supp_report.supplier.name %> </div>
-              <table>
-                <tbody>
-                  <% supp_report.food_type_reports.map do |food_type_report| %>
-                    <% food_type_report.container_reports.map do |container_report| %>
-                      <% next if !container_report.collected_any? %>
-                        <tr>
-                          <td><%= food_type_report.name %></td>
-                          <td><%= container_report.container.name %></td>
-                          <td><%= best_in_place container_report, :quantity, input: :text %></td>
-                        </tr>
-                      <% end %>
-                  <% end %>
-               </tbody>
-              </table>
-            </div>
-          <% end %>
-        </div>
-        <div class="actions left">
-            <div class="pickup-user ">
-              <span class="user_name right" user-id="<%= report.pickup.user.id %>">
-                  <%= report.pickup.user.name %>
-              </span>
-              <span class="date left">
-                <%= report.pickup.date %>
-              </span>
-            </div>
-            <div class="notes">
-              <%= report.notes || "אין הערות מתנדב" %>
-            </div>
-
-            <div class="approval approve green  <%= 'selected' if report.pickup.approved? %>" data-approval="approve" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
-              <div>
-                <div class="status-icon fi-check"> </div>
-                <div class="text"> אישור </div>
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div> -->
+  <tbody>
+    <% @reports_not_collected.map do |report| %>
+      <% report.supplier_reports.map do |supp_report| %>
+            <% next if supp_report.collected_any? %>
+            <tr class="pickup-report" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
+              <td class="report_id"><%= report.id %></td>
+              <td class="user_name"><%= report.pickup.user.name %></td>
+              <td class="user_priority_id"><%= report.pickup.user.priority_id %></td>
+              <td class="user_email"><%= report.pickup.user.email %></td>
+              <td class="supplier_name"><%= supp_report.supplier.name %></td>
+              <td class="pickup_date"><%= report.pickup.date %></td>
+              <td class="pickup_reason">
+               <%= best_in_place supp_report, :pickup_reason_id, as: :select,
+                collection: PickupReason.reasons_collection.insert(0, ["", "---"]) %>
+              </td>
+              <td class="report_notes"><%= report.notes.blank? ? "אין הערות מתנדב" : report.notes %></td>
+            </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
 
 <div style="text-align: center; width: 100%;">
   <div> Currently Using the Dropbox of: <%= @dropbox_email %> </div>

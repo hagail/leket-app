@@ -22,6 +22,7 @@ class Pickup < ActiveRecord::Base
 
   scope :approved, -> { where('pickups.approved_at IS NOT NULL') }
   scope :not_approved, -> { where('pickups.approved_at IS NULL') }
+  scope :not_sent, -> { where('pickups.sent_at IS NULL') }
 
   def approved?
     !approved_at.nil?
