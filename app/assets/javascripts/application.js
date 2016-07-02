@@ -43,7 +43,7 @@ $(document).ready(function() {
 
   var approvedMouseenterHandle = function(){
    var $button = $(this);
-   $button.css('background', 'red');
+   $button.addClass('alert').removeClass('success');
    $button.text('פסול')
    $button.on('mouseleave', approvedMouseleaveHandle);
    $button.on('mouseenter', approvedMouseenterHandle);
@@ -51,13 +51,13 @@ $(document).ready(function() {
 
   var approvedMouseleaveHandle = function(){
    var $button = $(this);
-   $button.css('background', '');
+   $button.addClass("success").removeClass('alert');
    $button.text('מאושר')
   }
 
   var unapprovedMouseenterHandle = function(){
    var $button = $(this);
-   $button.css('background', 'green');
+   $button.removeClass('alert').addClass('success');
    $button.text('אישור');
    $button.on('mouseleave', unapprovedMouseleaveHandle);
    $button.on('mouseenter', unapprovedMouseenterHandle);
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
   var unapprovedMouseleaveHandle = function(){
    var $button = $(this);
-   $button.css('background', '');
+   $button.addClass('alert').removeClass('success');
    $button.text('פסול')
   }
 
@@ -128,13 +128,13 @@ function unapproveReport(report){
  var button = report.find(".modify_approval");
  button.attr("data-approved", "false");
  button.text("פסול");
- button.css('background','');
+ button.removeClass("success").addClass('alert');
 }
 
 function approveReport(report){
  var button = report.find(".modify_approval");
  button.attr("data-approved", "true");
  button.text("מאושר");
- button.css('background','');
  report.removeClass('unapproved');
+ button.removeClass("alert").addClass('success');
 }

@@ -55,8 +55,8 @@
               <td class="container_quantity"><%= best_in_place container_report, :quantity, input: :text %></td>
               <td class="report_notes"><%= report.notes.blank? ? "אין הערות מתנדב" : report.notes %></td>
               <td class="options">
-               <span class="modify_approval tiny button" data-approved="<%= report.pickup.approved? %>">
-                <%= report.pickup.approved? ? "מאושר" : "פסול" %>
+               <span class="modify_approval tiny button <%= container_report.approved? ? 'success' : 'alert' %>" data-approved="<%= container_report.approved? %>">
+                <%= container_report.approved? ? "מאושר" : "פסול" %>
                </span>
               </td>
             </tr>

@@ -28,13 +28,13 @@ tr.pickup-report {
     color: white;
     width: 70px;
 
-    &[data-approved='false']{
-     background: red;
-    }
-
-    &[data-approved='true']{
-     background: green;
-    }
+    // &[data-approved='false']{
+    //  @extend .alert;
+    // }
+    //
+    // &[data-approved='true']{
+    //  @extend .success;
+    // }
   }
  }
 
