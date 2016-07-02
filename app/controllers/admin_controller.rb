@@ -5,17 +5,19 @@ class AdminController < ApplicationController
 
   def summary
     # need pickup report with supplier report with food type and container report for each user
-    approved = params[:approved] == 'yes' ? true : false
-    @reports = PickupReport.includes(supplier_reports:  :supplier,
-                                     food_type_reports: :food_type,
-                                     container_reports: :container)
-                           .joins(:pickup)
-                           .uniq
-    @reports = if approved
-                 @reports.merge(Pickup.approved)
-               else
-                 @reports.merge(Pickup.not_approved)
-               end
+    # reports = PickupReport.includes(supplier_reports:  :supplier,
+    #                                  food_type_reports: :food_type,
+    #                                  container_reports: :container)
+    #                        .joins(:pickup)
+    #                        .uniq
+
+    reports = PickupReport.joins("LEFT JOIN supplier_reports ON pickup_reports.id = supplier_reports.pickup_report_id")
+                          .joins("LEFT JOIN food_type_reports ON supplier_reports.id = food_type_reports.supplier_report_id ")
+                          .joins("LEFT JOIN container_reports ON food_type_reports.id = container_reports.food_type_report_id")
+                          .joins(:pickup).uniq
+
+    @reports = reports.where("container_reports.quantity > 0")
+    @reports_not_collected = reports.where("container_reports.quantity = 0")
 
     @dropbox_email = AppSettings.dropbox_email
 
