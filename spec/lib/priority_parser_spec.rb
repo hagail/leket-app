@@ -40,7 +40,6 @@ describe PriorityParser do
       )
 
       expect(pickups.first.supplier).to have_attributes(name: "מרכז עזריאלי")
-
       expect(pickups.first.supplier.suppliers[0]).to have_attributes(name: "מרקש אקספרס-עזריאלי")
       expect(pickups.first.supplier.suppliers[1]).to have_attributes(name: "פיצה עגבניה עזריאלי")
       expect(pickups.first.supplier.suppliers[2]).to have_attributes(name: "כרמליס בייגלס עזריאלי")

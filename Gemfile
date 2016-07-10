@@ -60,4 +60,5 @@ group :test do
   gem 'database_cleaner'
   gem 'annotate'
   gem 'simplecov'
+  gem 'timecop'
 end
