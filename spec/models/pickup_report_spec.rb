@@ -34,12 +34,11 @@ describe PickupReport do
   end
 
   describe "#report_file_name" do
-    after do
-      Timecop.return
+    before do
+      allow(Date).to receive(:today).and_return Date.new(2016, 12, 31)
     end
-    it "returns a file name with today date" do
-      Timecop.travel(Date.new(2016, 12, 31))
 
+    it "returns a file name with today date" do
       expect(PickupReport.report_file_name).to eq "public/2016-12-31.txt"
     end
   end
