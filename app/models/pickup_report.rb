@@ -34,36 +34,27 @@ class PickupReport < ActiveRecord::Base
     # if nothing was collected and there is no reason, add to it reason of user didnt go
     reports = PickupReport.joins('LEFT JOIN pickups ON pickup_reports.pickup_id = pickups.id')
                           .merge(Pickup.not_sent)
-
     reports.map(&:supplier_reports).flatten.map(&:pickup_reason_by_condition!)
+    #
+    # reports_to_export = reports.joins('LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id')
+    #                            .joins('LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id')
+    #                            .joins('LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id')
+    #                            .uniq
 
-    reports_to_export = reports.joins('LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id')
-                               .joins('LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id')
-                               .joins('LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id')
-                               .uniq
-    # .merge(ContainerReport.approved)
+    reports_to_export = PickupReport.reports_to_export
+    # # .merge(ContainerReport.approved)
+
+    # reports_to_export = self.reports_to_export
+
+    # reports_to_export.map(&:supplier_reports).flatten.map(&:pickup_reason_by_condition!)
 
     ::CSV.open(report_file_name, 'wb', row_sep: "\n", col_sep: "\t") do |csv|
-      csv << %w(id
-                date
-                main_supplier
-                warehouse
-                pickup_reason
-                subsupplier
-                food_type
-                container
-                quantity)
+      csv << %w(id date main_supplier warehouse pickup_reason subsupplier food_type container quantity)
       reports_to_export.each do |pickup_report|
-        # next unless pickup_report.collected_any?
         pickup = pickup_report.pickup
         pickup_report.supplier_reports.each do |supplier_report|
-          if !supplier_report.collected_any? && !supplier_report.pickup_reason_id.nil?
-            csv << [
-              pickup.priority_id,                        # pickup id - pickup.priority_id
-              pickup.date,                               # date - pickup.date
-              supplier_report.top_supplier.priority_id,  # main supplier - supplier_report.top_supplier.priority_id
-              supplier_report.pickup_reason.priority_id, # pickup reason id -
-            ]
+          if supplier_report.single_supplier? && !supplier_report.collected_any? && !supplier_report.pickup_reason_id.nil?
+            csv << PickupReportsHelper.export_not_collected_report(pickup, supplier_report)
             next
           end
 
@@ -71,17 +62,7 @@ class PickupReport < ActiveRecord::Base
             food_report.container_reports.each do |container_report|
               next unless container_report.collected_any?
               next if container_report.collected_any? && !container_report.approved?
-              csv << [
-                pickup.priority_id,                        # pickup id - pickup.priority_id
-                pickup.date,                               # date - pickup.date
-                supplier_report.top_supplier.priority_id,  # main supplier - supplier_report.top_supplier.priority_id
-                pickup_report.warehouse.priority_id,       # warehouse id
-                supplier_report.pickup_reason.priority_id, # pickup reason id -
-                supplier_report.supplier.priority_id,      # subsupplier - supplier_report.supplier.priority_id
-                food_report.food_type.priority_id,         # food type - food_report.food_type.priority_id
-                container_report.container.priority_id,    # container - container_report.container.priority_id
-                container_report.quantity                  # quantity - container_report.quantity
-              ]
+              csv << PickupReportsHelper.export_collected_report(pickup_report, supplier_report, food_report, container_report)
             end
           end
         end
@@ -89,5 +70,13 @@ class PickupReport < ActiveRecord::Base
         pickup_report.pickup.sent!
       end
     end
+  end
+
+  def self.reports_to_export
+    PickupReport.joins('LEFT JOIN pickups ON pickup_reports.pickup_id = pickups.id')
+                .merge(Pickup.not_sent).joins('LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id')
+                .joins('LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id')
+                .joins('LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id')
+                .uniq
   end
 end
