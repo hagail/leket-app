@@ -32,3 +32,6 @@ Style/SpecialGlobalVars:
   Enabled: false
 Metrics/LineLength:
   Max: 140
+Style/EmptyLines:
+ Enabled: true
+ AutoCorrect: true
