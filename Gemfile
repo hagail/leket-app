@@ -47,14 +47,14 @@ end
 
 group :development, :test do
   gem 'pry'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'cucumber-rails', require: false
-  gem 'factory_girl_rails'
-  gem 'faker'
   gem 'poltergeist'
   gem 'shoulda-matchers', '~> 2.8.0', require: false
   gem 'database_cleaner'
