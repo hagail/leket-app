@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :pickup do
     priority_id { rand(10000) + 10000 }
-    status "sent"
     date { Date.today }
 
     approved_at nil

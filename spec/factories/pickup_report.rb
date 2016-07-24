@@ -5,14 +5,13 @@ FactoryGirl.define do
     updated_at { Time.now }
     pickup
     warehouse
-    pickup_reason
 
     transient do
       supplier_report_count 3
     end
 
     after(:create) do |pickup_report, evaluator|
-      create_list(:supplier_report, evaluator.supplier_report_count, pickup_report: pickup_report)
+      create_list(:supplier_report, evaluator.supplier_report_count, food_type_report_count: 1, pickup_report: pickup_report)
     end
   end
 end

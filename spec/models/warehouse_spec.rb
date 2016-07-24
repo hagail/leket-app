@@ -11,13 +11,12 @@
 #  address     :string
 #
 
-
 require 'spec_helper'
 
 describe Warehouse do
   describe "#name_with_address" do
     it "returns the name with address" do
-      warehouse = Warehouse.create(name: "test", address: "some street")
+      warehouse = create(:warehouse, name: "test", address: "some street")
 
       expect(warehouse.name_with_address).to eq "test - some street"
     end

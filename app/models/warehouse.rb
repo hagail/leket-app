@@ -20,7 +20,7 @@ class Warehouse < ActiveRecord::Base
   def self.process_from_csv(filename)
     warehouse_from_file = CSV.read(filename, col_sep: ",")[1..-1]
     warehouse_from_file.map do |warehouse_line|
-      warehouse = Warehouse.create(
+      Warehouse.create(
         priority_id: warehouse_line[0],
         name:        warehouse_line[1],
         city:        warehouse_line[2],

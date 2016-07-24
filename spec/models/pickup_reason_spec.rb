@@ -10,7 +10,6 @@
 #  user_displayed :boolean          default(FALSE)
 #
 
-
 require 'spec_helper'
 
 describe PickupReason do

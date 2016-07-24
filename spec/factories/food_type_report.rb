@@ -3,7 +3,7 @@ FactoryGirl.define do
     food_type
 
     transient do
-      container_reports_count 3
+      container_reports_count 1
     end
 
     after(:create) do |food_type_report, evaluator|

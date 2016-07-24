@@ -10,7 +10,6 @@
 #  pickup_reason_id :integer
 #
 
-
 require 'spec_helper'
 
 describe SupplierReport do
