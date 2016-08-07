@@ -195,5 +195,79 @@ describe PickupReport do
         PickupReport.create_approved_csv
       end
     end
+
+    context "single supplier" do
+      before do
+        allow(pr).to receive(:supplier_reports).and_return [sr]
+      end
+      let(:sr) do
+        double(:supplier_report, single_supplier?: true,
+                                 collected_any?:   collected,
+                                 pickup_reason:    double(priority_id: 2),
+                                 top_supplier:     nil).as_null_object
+      end
+      context "there was food collected" do
+        let(:collected) { true }
+
+        it "exports the pickup reason" do
+          expect(PickupReportsHelper).not_to receive(:export_collected_report)
+
+          PickupReport.create_approved_csv
+        end
+      end
+
+      context "no food was collected" do
+        let(:collected) { false }
+
+        it "exports the pickup reason" do
+          expect(PickupReportsHelper).to receive(:export_not_collected_report).and_return ["line"]
+
+          PickupReport.create_approved_csv
+        end
+      end
+    end
+
+    context "with sub suppliers" do
+      before do
+        allow(pr).to receive(:supplier_reports).and_return [sr]
+      end
+      let(:sr) do
+        double(:supplier_report, single_supplier?: false,
+                                 collected_any?:   false,
+                                 pickup_reason:    double(priority_id: 2),
+                                 top_supplier:     double(priority_id: 1)).as_null_object
+      end
+      context "food was not collected from ALL the sub suppliers" do
+        it "exports the pickup reason" do
+          expect(PickupReportsHelper).to receive(:export_not_collected_report).and_return ["line"]
+
+          PickupReport.create_approved_csv
+        end
+      end
+    end
+    context "food was collected by some of sub suppliers" do
+      before do
+        allow(pr).to receive(:supplier_reports).and_return [sr]
+      end
+
+      let(:sr) do
+        double(:supplier_report, single_supplier?: false,
+                                 collected_any?:   true,
+                                 pickup_reason:    double(priority_id: 2),
+                                 top_supplier:     double(priority_id: 1)).as_null_object
+      end
+
+      it "does not export the pickup reason of not collected sub suppliers" do
+        expect(PickupReportsHelper).not_to receive(:export_not_collected_report)
+
+        PickupReport.create_approved_csv
+      end
+
+      it "does not export the sub suppliers that didn't collect" do
+        expect(PickupReportsHelper).not_to receive(:export_not_collected_report).with(pr, sr)
+
+        PickupReport.create_approved_csv
+      end
+    end
   end
 end
