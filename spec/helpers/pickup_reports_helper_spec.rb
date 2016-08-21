@@ -54,6 +54,7 @@ describe PickupReportsHelper do
         "pid",
         "today",
         "top_pid",
+        "X",
         "reason_pid"
       ]
     end

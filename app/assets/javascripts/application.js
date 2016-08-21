@@ -50,6 +50,13 @@ $(document).ready(function() {
   $(".best_in_place").best_in_place();
 
 
+  $(".create_csv").on("click", function(){
+   $.ajax({
+     url: "/admin/csv",
+     method: "POST"
+   })
+  })
+
   $(".pickup-report .edit").on("click", function(){
     $(this).closest(".pickup-report").removeClass("closed");
   })

@@ -32,9 +32,9 @@ class PickupReport < ActiveRecord::Base
 
   def self.create_approved_csv
     # if nothing was collected and there is no reason, add to it reason of user didnt go
-    reports = PickupReport.joins('LEFT JOIN pickups ON pickup_reports.pickup_id = pickups.id')
-                          .merge(Pickup.not_sent)
-    reports.map(&:supplier_reports).flatten.map(&:pickup_reason_by_condition!)
+    # reports = PickupReport.joins('LEFT JOIN pickups ON pickup_reports.pickup_id = pickups.id')
+    #                       .merge(Pickup.not_sent)
+    # reports.map(&:supplier_reports).flatten.map(&:pickup_reason_by_condition!)
     #
     # reports_to_export = reports.joins('LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id')
     #                            .joins('LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id')
@@ -42,6 +42,8 @@ class PickupReport < ActiveRecord::Base
     #                            .uniq
 
     reports_to_export = PickupReport.reports_to_export
+    reports_to_export.map(&:supplier_reports).flatten.map(&:pickup_reason_by_condition!)
+
     # # .merge(ContainerReport.approved)
 
     # reports_to_export = self.reports_to_export
@@ -53,8 +55,9 @@ class PickupReport < ActiveRecord::Base
       reports_to_export.each do |pickup_report|
         pickup = pickup_report.pickup
         pickup_report.supplier_reports.each do |supplier_report|
-          if supplier_report.single_supplier? && !supplier_report.collected_any? && !supplier_report.pickup_reason_id.nil? ||
-             !supplier_report.single_supplier? && !supplier_report.collected_any?
+         supplier = supplier_report.supplier
+          if supplier.single_supplier? && !supplier_report.collected_any? && !supplier_report.pickup_reason_id.nil? ||
+             !supplier.single_supplier? && supplier.top_supplier? && !supplier_report.collected_any?
             csv << PickupReportsHelper.export_not_collected_report(pickup, supplier_report)
             next
           end
@@ -75,9 +78,10 @@ class PickupReport < ActiveRecord::Base
 
   def self.reports_to_export
     PickupReport.joins('LEFT JOIN pickups ON pickup_reports.pickup_id = pickups.id')
-                .merge(Pickup.not_sent).joins('LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id')
-                .joins('LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id')
-                .joins('LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id')
-                .uniq
+                .merge(Pickup.not_sent).uniq
+                # .joins('LEFT JOIN supplier_reports ON supplier_reports.pickup_report_id = pickup_reports.id')
+                # .joins('LEFT JOIN food_type_reports ON food_type_reports.supplier_report_id = supplier_reports.id')
+                # .joins('LEFT JOIN container_reports ON container_reports.food_type_report_id = food_type_reports.id')
+                # .uniq
   end
 end

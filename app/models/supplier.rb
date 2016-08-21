@@ -13,4 +13,18 @@
 class Supplier < ActiveRecord::Base
   has_many :suppliers
   belongs_to :supplier
+  has_one :supplier_report
+
+  def top_supplier
+    supplier_id.nil? ? self : supplier.supplier
+  end
+
+  def top_supplier?
+   supplier_id.nil?
+  end
+
+  def single_supplier?
+    supplier_id.nil?
+  end
+
 end

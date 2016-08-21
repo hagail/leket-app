@@ -30,6 +30,10 @@ class SupplierReport < ActiveRecord::Base
     supplier.supplier_id.nil? ? supplier : supplier.supplier
   end
 
+  def top_supplier?
+   top_supplier == self
+  end
+
   def single_supplier?
     supplier_id.nil?
   end

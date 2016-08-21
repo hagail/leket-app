@@ -24,6 +24,12 @@ class AdminController < ApplicationController
     render 'pickup_reports/summary'
   end
 
+  def create_csv
+   PickupReport.create_approved_csv
+
+   head :ok
+  end
+
   def approve
     report = PickupReport.find(params[:id])
     pickup = report.pickup
