@@ -16,7 +16,7 @@ class Supplier < ActiveRecord::Base
   has_one :supplier_report
 
   def top_supplier
-    supplier_id.nil? ? self : supplier.supplier
+    supplier_id.nil? ? supplier : supplier.supplier
   end
 
   def top_supplier?

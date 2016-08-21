@@ -60,41 +60,6 @@ describe SupplierReport do
     end
   end
 
-  describe "#top_supplier" do
-    before do
-      allow(sr).to receive(:supplier).and_return supplier
-    end
-
-    context "supplier has no supplier" do
-      let(:supplier) { double(:supplier, supplier_id: nil) }
-      it "return the supplier" do
-        expect(sr.top_supplier).to eq supplier
-      end
-    end
-
-    context "supplier has a parent supplier" do
-      let(:supplier) { double(:supplier, supplier_id: 5, supplier: "TopSupp") }
-      it "returns the parent supplier" do
-        expect(sr.top_supplier).to eq "TopSupp"
-      end
-    end
-  end
-
-  describe "#top_supplier?" do
-    context "supplier has no supplier" do
-      let(:supplier) { create(:supplier, supplier_id: nil) }
-      it "return the supplier" do
-        expect(supplier.top_supplier?).to eq true
-      end
-    end
-
-    context "supplier has a parent supplier" do
-      let(:supplier) { create(:supplier, supplier_id: 5) }
-      it "returns the parent supplier" do
-        expect(supplier.top_supplier?).to eq false
-      end
-    end
-  end
 
   describe "#pickup_reason_by_condition!" do
     context "there was a collection of food with no reason" do
