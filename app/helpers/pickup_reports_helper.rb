@@ -34,7 +34,7 @@ module PickupReportsHelper
      pickup.priority_id,                        # pickup id - pickup.priority_id
      pickup.date,                               # date - pickup.date
      supplier_report.top_supplier.priority_id,  # main supplier - supplier_report.top_supplier.priority_id
-     "X",       # warehouse id
+     "X", # warehouse id
      supplier_report.pickup_reason.priority_id, # pickup reason id -
    ]
  end

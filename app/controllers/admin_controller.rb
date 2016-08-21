@@ -25,9 +25,9 @@ class AdminController < ApplicationController
   end
 
   def create_csv
-   PickupReport.create_approved_csv
+    PickupReport.create_approved_csv
 
-   head :ok
+    head :ok
   end
 
   def approve

@@ -60,7 +60,6 @@ describe SupplierReport do
     end
   end
 
-
   describe "#pickup_reason_by_condition!" do
     context "there was a collection of food with no reason" do
       let!(:reason_food) { PickupReason.create(priority_id: "01") }

@@ -55,7 +55,7 @@ class PickupReport < ActiveRecord::Base
       reports_to_export.each do |pickup_report|
         pickup = pickup_report.pickup
         pickup_report.supplier_reports.each do |supplier_report|
-         supplier = supplier_report.supplier
+          supplier = supplier_report.supplier
           if supplier.single_supplier? && !supplier_report.collected_any? && !supplier_report.pickup_reason_id.nil? ||
              !supplier.single_supplier? && supplier.top_supplier? && !supplier_report.collected_any?
             csv << PickupReportsHelper.export_not_collected_report(pickup, supplier_report)

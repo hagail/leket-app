@@ -20,11 +20,10 @@ class Supplier < ActiveRecord::Base
   end
 
   def top_supplier?
-   supplier_id.nil?
+    supplier_id.nil?
   end
 
   def single_supplier?
     supplier_id.nil?
   end
-
 end
