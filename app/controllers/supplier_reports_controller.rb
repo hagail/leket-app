@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: supplier_reports
+#
+#  id               :integer          not null, primary key
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  pickup_report_id :integer
+#  supplier_id      :integer
+#  pickup_reason_id :integer
+#
+
 class SupplierReportsController < ApplicationController
   http_basic_authenticate_with name: 'test', password: 'test'
 

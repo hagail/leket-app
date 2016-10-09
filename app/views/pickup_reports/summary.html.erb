@@ -36,7 +36,7 @@
           <% food_type_report.container_reports.map do |container_report| %>
             <% next if !container_report.collected_any? %>
             <tr class="pickup-report <%= container_report.approved? ? '' : 'unapproved'%>" data-report-id="<%= report.id %>" data-container-report-id="<%= container_report.id %>" data-pickup-id="<%= report.pickup.id %>">
-              <td class="report_id"><%= report.id %></td>
+              <td class="report_id"><%= report.id %> - <%= report.pickup.priority_id %></td>
               <td class="user_name"><%= report.pickup.user.name %></td>
               <td class="user_priority_id"><%= report.pickup.user.priority_id %></td>
               <td class="user_email"><%= report.pickup.user.email %></td>
@@ -85,7 +85,7 @@
       <% report.supplier_reports.map do |supp_report| %>
             <% next if supp_report.collected_any? %>
             <tr class="pickup-report" data-report-id="<%= report.id %>" data-pickup-id="<%= report.pickup.id %>">
-              <td class="report_id"><%= report.id %></td>
+              <td class="report_id"><%= report.id %> - <%= report.pickup.priority_id %></td>
               <td class="user_name"><%= report.pickup.user.name %></td>
               <td class="user_priority_id"><%= report.pickup.user.priority_id %></td>
               <td class="user_email"><%= report.pickup.user.email %></td>

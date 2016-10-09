@@ -9,7 +9,7 @@
 require 'csv'
 require_relative '../lib/priority_parser'
 
-pickups_from_file = CSV.read('spec/fixtures/isuf.txt', col_sep: "\t", encoding: 'Windows-1255')[1..-1]
+pickups_from_file = CSV.read('spec/fixtures/isuf2.txt', col_sep: "\t", encoding: 'Windows-1255')[1..-1]
 PriorityParser.process(pickups_from_file)
 
 ### Set Food Types and Containers ###

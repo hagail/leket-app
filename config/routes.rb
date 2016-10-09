@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'thank_you' => 'pickups#thank_you'
 
   get 'admin/summary', to: 'admin#summary', as: :pickups_summary
+  post 'admin/csv', to: 'admin#create_csv'
   post 'pickup_reports/:id/approve', to: 'admin#approve'
   post 'pickup_reports/:id/unapprove', to: 'admin#unapprove'
   post 'container_reports/:id/approve', to: 'admin#container_approve'

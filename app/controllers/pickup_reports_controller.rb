@@ -51,7 +51,8 @@ class PickupReportsController < ApplicationController
   #
   #   approved = params[:approved] == "yes" ? true : false
   #
-  #   @reports = PickupReport.includes(supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container ).joins(:pickup).uniq
+  #   @reports = PickupReport.includes(supplier_reports: :supplier, food_type_reports: :food_type, container_reports: :container )
+  #              .joins(:pickup).uniq
   #
   #   if approved
   #     @reports = @reports.merge(Pickup.approved)

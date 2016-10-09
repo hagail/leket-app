@@ -16,7 +16,6 @@ class SupplierReport < ActiveRecord::Base
   has_many   :food_type_reports, dependent: :destroy
   belongs_to :pickup_reason
 
-
   has_many :container_reports, through: :food_type_reports
 
   def pickup_reason_name
@@ -36,8 +35,10 @@ class SupplierReport < ActiveRecord::Base
     check_volunteer_didnt_go!
   end
 
+  private
+
   def check_there_was_food!
-    # if something was collected add to it there was food
+    # if something was collected add to it 'there was food'
     if collected_any? && pickup_reason_id.blank?
       reason = PickupReason.where(priority_id: "01").first
       update_column(:pickup_reason_id, reason.id)
@@ -45,7 +46,7 @@ class SupplierReport < ActiveRecord::Base
   end
 
   def check_volunteer_didnt_go!
-    # if something was collected add to it there was food
+    # if something was collected add to it 'volunteer didnt go'
     if !collected_any? && pickup_reason_id.blank?
       reason = PickupReason.where(priority_id: "06").first
       update_column(:pickup_reason_id, reason.id)

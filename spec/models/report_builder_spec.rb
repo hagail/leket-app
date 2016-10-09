@@ -3,8 +3,8 @@ require 'spec_helper'
 describe ReportBuilder do
   describe '.build_pickup_report' do
     it 'builds a report with one supplier report for a pickup without sub-suppliers' do
-      supplier = Supplier.new
-      pickup = Pickup.new(supplier: supplier)
+      supplier = create(:supplier)
+      pickup = create(:pickup, supplier: supplier)
 
       pickup_report = ReportBuilder.build_pickup_report(pickup)
 
@@ -13,9 +13,9 @@ describe ReportBuilder do
     end
 
     it 'builds a report with all sub-supplier report for a pickup with sub-suppliers' do
-      subSupplier = Supplier.new
-      supplier = Supplier.new(suppliers: [subSupplier])
-      pickup = Pickup.new(supplier: supplier)
+      subSupplier = create(:supplier)
+      supplier = create(:supplier, suppliers: [subSupplier])
+      pickup = create(:pickup, supplier: supplier)
 
       pickup_report = ReportBuilder.build_pickup_report(pickup)
 
