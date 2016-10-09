@@ -15,15 +15,9 @@ class Supplier < ActiveRecord::Base
   belongs_to :supplier
   has_one :supplier_report
 
-  def top_supplier
-    supplier_id.nil? ? supplier : supplier.supplier
-  end
-
   def top_supplier?
     supplier_id.nil?
   end
 
-  def single_supplier?
-    supplier_id.nil?
-  end
+  alias single_supplier? top_supplier?
 end
