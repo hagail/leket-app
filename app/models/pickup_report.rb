@@ -27,7 +27,7 @@ class PickupReport < ActiveRecord::Base
   end
 
   def self.report_file_name
-    "public/#{Date.today.strftime}.txt"
+    "public/isuf_results.txt"
   end
 
   def self.create_approved_csv
@@ -50,7 +50,7 @@ class PickupReport < ActiveRecord::Base
 
     # reports_to_export.map(&:supplier_reports).flatten.map(&:pickup_reason_by_condition!)
 
-    ::CSV.open(report_file_name, 'wb', row_sep: "\n", col_sep: "\t") do |csv|
+    ::CSV.open(report_file_name, 'a', row_sep: "\n", col_sep: "\t") do |csv|
       csv << %w(id date main_supplier warehouse pickup_reason subsupplier food_type container quantity)
       reports_to_export.each do |pickup_report|
         pickup = pickup_report.pickup

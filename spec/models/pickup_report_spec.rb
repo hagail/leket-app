@@ -39,7 +39,7 @@ describe PickupReport do
     end
 
     it "returns a file name with today date" do
-      expect(PickupReport.report_file_name).to eq "public/2016-12-31.txt"
+      expect(PickupReport.report_file_name).to eq "public/isuf_results.txt"
     end
   end
 
