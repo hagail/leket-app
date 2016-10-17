@@ -87,7 +87,7 @@ describe PickupReport do
 
       file = File.open(PickupReport.report_file_name).readlines.join.tr("\t", ",").split(/\n/)
 
-      expect(file.size).to eq 1 + pr.supplier_reports.size * 1 * 1 # default food_types and container list is 1
+      expect(file.size).to eq(pr.supplier_reports.size * 1 * 1 )# default food_types and container list is 1
     end
 
     # 5. each pickup should be marked as sent!
